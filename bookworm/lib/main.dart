@@ -6,22 +6,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: PopUp(),
-    );
-  }
-}
-
-class PopUp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 600)
-          ],
-        ),
-      ),
+      home: Acervo(),
     );
   }
 }
@@ -52,25 +37,30 @@ class Acervo extends StatelessWidget {
 }
 
 Widget _horizontalListView() {
-  return SizedBox(
-    height: 200,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (_, __) => _buildBox2(
-        color: Colors.white,
+  return Padding(
+    padding: const EdgeInsets.only(top: 24.0, bottom: 24.0, right: 48, left:48),
+    child: SizedBox(
+      height: 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, __) => _buildBox2(),
       ),
     ),
   );
 }
 
 Widget _title() {
-  return Text('Qualquer texto');
+  return Text(
+    'Qualquer texto',
+    textAlign: TextAlign.center,
+    style: TextStyle(fontSize: 32),
+  );
 }
 
-Widget _buildBox2({Color color}) {
+Widget _buildBox2() {
   return Container(
-    margin: EdgeInsets.all(12),
-    width: 120,
-    color: color,
+    width: 130,
+    color: Colors.white70,
+    margin: EdgeInsets.only(right: 64),
   );
 }
