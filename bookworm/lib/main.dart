@@ -3,18 +3,29 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final appTitle = 'Acervo';
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: appTitle,
       home: Acervo(),
     );
   }
 }
 
 class Acervo extends StatelessWidget {
+  final String title;
+  
+  Acervo({Key key, this.title}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(title, style: TextStyle(fontFamily: 'JosefinSans', fontSize: 40.0),), backgroundColor: Colors.black87 , elevation: 0.3,centerTitle: true,
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -31,6 +42,37 @@ class Acervo extends StatelessWidget {
             },
           ),
         ],
+      ),
+      drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                height: 80.0,
+                child:  DrawerHeader(
+                  child: Text('Hello'),
+                  decoration:BoxDecoration(
+                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                  ),
+                ),
+              ),
+
+              ListTile(
+                title: Text('Item 1'),
+                onTap: () {
+                  Navigator.pop(context);
+
+                },
+              ),
+              ListTile(
+                title: Text('Item 2'),
+                onTap: () {
+                  Navigator.pop(context);
+
+                },
+              ),
+            ],
+          ),
       ),
     );
   }
