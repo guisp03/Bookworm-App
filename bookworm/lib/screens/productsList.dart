@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste/components/customAppBar.dart';
 import 'package:teste/components/customDrawer.dart';
 
-class AcervoScreen extends StatelessWidget {
+class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

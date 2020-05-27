@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:teste/screens/acervo.dart';
+import 'package:teste/components/customBlackSwatch.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:teste/screens/product.dart';
+import 'package:teste/screens/productsList.dart';
 
+void main() => runApp(BookwormApp());
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-
+class BookwormApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var materialApp = MaterialApp(
+    return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       theme: ThemeData(
+        primarySwatch: customBlack,
         primaryColor: Colors.black,
         canvasColor: Colors.black,
         textTheme: TextTheme(
@@ -27,13 +34,11 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Josefin Sans',
             fontSize: 25.0,
             color: Colors.white,
-          )
+          ),
         ),
       ),
       title: 'Bookworm',
-      home: AcervoScreen(),
+      home: ProductScreen(),
     );
-    return materialApp;
   }
 }
-
