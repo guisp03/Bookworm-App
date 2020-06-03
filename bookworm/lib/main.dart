@@ -28,6 +28,7 @@ class BookwormApp extends StatelessWidget {
           bodyText2: TextStyle(
             fontFamily: 'Josefin Sans',
             fontSize: 32.0,
+            fontWeight: FontWeight.w900,
             color: Colors.black,
           ),
           subtitle2: TextStyle(
@@ -38,7 +39,7 @@ class BookwormApp extends StatelessWidget {
         ),
       ),
       title: 'Bookworm',
-      home: ProductScreen(),
+      home: ProductListScreen(),
     );
   }
 }
