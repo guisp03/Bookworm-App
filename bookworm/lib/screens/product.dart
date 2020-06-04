@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:teste/components/customAppBar.dart';
 
 class ProductScreen extends StatefulWidget {
   @override
@@ -25,6 +26,8 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(title: 'Acervo'),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -37,11 +40,31 @@ class _ProductScreenState extends State<ProductScreen> {
               Row(
                 children: <Widget>[
                   Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
                     height: 200,
                     width: 130,
-                    color: Colors.white70,
+                    child: Image.asset(
+                      'assets/images/orgulho.jpg',
+                      fit: BoxFit.cover,
+
+                    ),
                   ),
-                  Text("Texto grandao")
+                  Expanded(child:Container(
+                    margin: const EdgeInsets.only(top: 120),
+                      height: 450,
+                      width: 210,
+                      child: RichText(
+                            text: TextSpan(
+                            text: 'Orgulho e Preconceito \n ',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                            children: <TextSpan>[
+                              TextSpan(text: 'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.', style: TextStyle(fontSize: 15)),
+                            ],
+                            ),
+                            )
+
+                  ),
+                  ),
                 ],
               ),
               Padding(
@@ -53,8 +76,10 @@ class _ProductScreenState extends State<ProductScreen> {
                       _selectDate(context);
                     });
                   },
-                  child: Text('oi'),
-                  color: Colors.blue,
+                  child: Text(
+                    'Reservar',
+                     style: TextStyle(fontSize: 20)
+                  color: Colors.indigoAccent,
                 ),
               ),
             ],
