@@ -16,6 +16,7 @@ class CustomDrawer extends StatelessWidget {
             child: DrawerHeader(
               child: Text(
                 'Olá',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
@@ -29,15 +30,23 @@ class CustomDrawer extends StatelessWidget {
             onClick: () {},
           ),
           CustomListTile(
-            title: '',
+            title: 'Atividades',
             onClick: () {},
           ),
           CustomListTile(
-            title: '',
+            title: 'Minha Conta',
             onClick: () {},
           ),
           CustomListTile(
-            title: '',
+            title: 'Apoie',
+            onClick: () {},
+          ),
+          CustomListTile(
+            title: 'Sobre',
+            onClick: () {},
+          ),
+          CustomListTile(
+            title: 'SAC',
             onClick: () {},
           ),
           CustomListTile(
