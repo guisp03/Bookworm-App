@@ -15,8 +15,7 @@ class CustomAppBar extends PreferredSize {
         title,
         style: Theme.of(context).textTheme.headline6,
       ),
-      backgroundColor: Colors.transparent,
-      elevation: 0.3,
+      backgroundColor: Color.fromRGBO(25, 50, 60, 0.85),
       centerTitle: true,
     );
   }
