@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste/components/customAppBar.dart';
 import 'package:teste/components/customDrawer.dart';
+import 'package:teste/screens/product.dart';
 
 class ProductListScreen extends StatelessWidget {
   @override
@@ -30,14 +31,14 @@ class ProductListScreen extends StatelessWidget {
             Text(
               'Qualquer texto',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.subtitle2,
             ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 24.0, bottom: 24.0, right: 48, left: 48),
               child: SizedBox(
                 height: 200,
-                child: _buildBooksByCategorie(),
+                child: _booksByCategorie(),
               ),
             ),
           ],
@@ -46,20 +47,28 @@ class ProductListScreen extends StatelessWidget {
     );
   }
 
-  ListView _buildBooksByCategorie() {
+  ListView _booksByCategorie() {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, i) {
-        return _buildBook();
+        return _book(context);
       },
     );
   }
 
-  Container _buildBook() {
-    return Container(
-      width: 130,
-      color: Colors.white70,
-      margin: EdgeInsets.only(right: 64),
+  GestureDetector _book(context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProductScreen()),
+        );
+      },
+      child: Container(
+        width: 130,
+        color: Colors.white70,
+        margin: EdgeInsets.only(right: 64),
+      ),
     );
   }
 }
