@@ -10,6 +10,8 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   DateTime _date = DateTime.now();
 
+  _ProductScreenState();
+
   Future<Null> _selectDate(BuildContext context) async {
     await showDatePicker(
       context: context,
@@ -19,7 +21,9 @@ class _ProductScreenState extends State<ProductScreen> {
       locale: Locale('pt'),
     );
     if (_date != null) {
-      print(_date.toString());
+      print(
+        _date.toString(),
+      );
     }
   }
 
@@ -27,64 +31,132 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(title: 'Acervo'),
+      appBar: CustomAppBar(
+        title: 'Acervo',
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset(
-            'assets/images/fundo.jpeg',
-            fit: BoxFit.cover,
-          ),
-          Column(
-            children: <Widget>[
-              Row(
+          Image.asset('assets/images/fundo.png', fit: BoxFit.cover),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 75.0),
+              child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
-                    height: 200,
-                    width: 130,
-                    child: Image.asset(
-                      'assets/images/orgulho.jpg',
-                      fit: BoxFit.cover,
-
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: 200,
+                          width: 130,
+                          child: Image.asset(
+                            'assets/images/orgulho.webp',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        ProductDescriptionExpanded('Orgulho e Preconceito\n',
+                            'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.'),
+                      ],
                     ),
                   ),
-                  Expanded(child:Container(
-                    margin: const EdgeInsets.only(top: 120),
-                      height: 450,
-                      width: 210,
-                      child: RichText(
-                            text: TextSpan(
-                            text: 'Orgulho e Preconceito \n ',
-                            style: TextStyle(fontSize: 20, color: Colors.black),
-                            children: <TextSpan>[
-                              TextSpan(text: 'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.', style: TextStyle(fontSize: 15)),
-                            ],
-                            ),
-                            )
-
-                  ),
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CupertinoButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectDate(context);
+                        });
+                      },
+                      child: Text(
+                        'Reservar',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(64.0),
-                child: CupertinoButton(
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ProductDescriptionExpanded extends StatefulWidget {
+  final String name;
+  final String description;
+
+  ProductDescriptionExpanded(this.name, this.description);
+
+  @override
+  _ProductDescriptionExpandedState createState() =>
+      _ProductDescriptionExpandedState();
+}
+
+class _ProductDescriptionExpandedState
+    extends State<ProductDescriptionExpanded> {
+  String description1;
+  String description2;
+  bool flag = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.description.length > 200) {
+      description1 = widget.description.substring(0, 200);
+      description2 =
+          widget.description.substring(50, widget.description.length);
+    } else {
+      description1 = widget.description;
+      description2 = '';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: description2.isEmpty
+          ? _productDescriptionText(context)
+          : Column(
+              children: <Widget>[
+                _productDescriptionText(context),
+                FlatButton(
                   onPressed: () {
-                    print(_date.toString());
-                    setState(() {
-                      _selectDate(context);
-                    });
+                    setState(
+                      () {
+                        flag = !flag;
+                      },
+                    );
                   },
                   child: Text(
-                    'Reservar',
-                     style: TextStyle(fontSize: 20)
-                  color: Colors.indigoAccent,
+                    flag ? "Leia mais" : "Leia menos",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+    );
+  }
+
+  Container _productDescriptionText(BuildContext context) {
+    return Container(
+      width: 250.0,
+      child: RichText(
+        text: TextSpan(
+          text: widget.name,
+          style: Theme.of(context).textTheme.subtitle1,
+          children: <TextSpan>[
+            TextSpan(
+              text: flag ? (description1) : (description1 + description2),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        ),
       ),
     );
   }

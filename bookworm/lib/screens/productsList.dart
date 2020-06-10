@@ -12,7 +12,7 @@ class ProductListScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/fundo.jpeg',
+            'assets/images/fundo.png',
             fit: BoxFit.cover,
           ),
           _buildBooks(),
