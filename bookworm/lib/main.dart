@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:teste/screens/product.dart';
 import 'package:teste/screens/productsList.dart';
 
 void main() => runApp(BookwormApp());
@@ -23,22 +22,22 @@ class BookwormApp extends StatelessWidget {
         accentColor: darkBlue,
         textTheme: TextTheme(
           headline6: TextStyle(
-            fontFamily: 'Josefin Sans',
-            fontSize: 30.0,
+            fontFamily: 'JosefinSans',
+            fontSize: 35.0,
             color: Colors.white,
           ),
           subtitle1: TextStyle(
-            fontFamily: 'Josefin Sans',
+            fontFamily: 'JosefinSans',
             fontSize: 25.0,
             color: Colors.white,
           ),
           subtitle2: TextStyle(
-            fontFamily: 'Josefin Sans',
+            fontFamily: 'JosefinSans',
             fontSize: 30.0,
             color: Colors.white,
           ),
           bodyText1: TextStyle(
-            fontFamily: 'Josefin Sans',
+            fontFamily: 'JosefinSans',
             fontSize: 16.0,
             color: Colors.white,
           ),
