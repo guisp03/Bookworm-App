@@ -53,7 +53,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           height: 200,
                           width: 130,
                           child: Image.asset(
-                            'assets/images/orgulho.webp',
+                            'assets/images/orgulho.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
