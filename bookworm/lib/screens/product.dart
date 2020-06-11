@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste/components/customAppBar.dart';
+import 'package:teste/components/customDrawer.dart';
 
 class ProductScreen extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _ProductScreenState extends State<ProductScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset('assets/images/fundo.png', fit: BoxFit.cover),
+          Image.asset('assets/images/fundoEscuro.png', fit: BoxFit.cover),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(top: 75.0),
@@ -82,6 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
           )
         ],
       ),
+      drawer: CustomDrawer(),
     );
   }
 }

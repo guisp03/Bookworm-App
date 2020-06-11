@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:teste/screens/login.dart';
 import 'package:teste/screens/productsList.dart';
+import 'package:teste/screens/start.dart';
 
 void main() => runApp(BookwormApp());
 
@@ -26,6 +28,10 @@ class BookwormApp extends StatelessWidget {
             fontSize: 35.0,
             color: Colors.white,
           ),
+          headline5: TextStyle(
+            fontFamily: 'JosefinSans',
+            fontSize: 70.0,
+          ),
           subtitle1: TextStyle(
             fontFamily: 'JosefinSans',
             fontSize: 25.0,
@@ -41,10 +47,11 @@ class BookwormApp extends StatelessWidget {
             fontSize: 16.0,
             color: Colors.white,
           ),
+          
         ),
       ),
       title: 'Bookworm',
-      home: ProductListScreen(),
+      home: LoginScreen(),
     );
   }
 }

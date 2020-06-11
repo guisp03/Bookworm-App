@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StartScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,11 +11,11 @@ class StartScreen extends StatelessWidget {
             'assets/images/fundoClaro.jpeg',
             fit: BoxFit.cover,
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/logo.png',
-            ),
-          )
+          Column(
+            children: <Widget>[
+              Text('Login', style: Theme.of(context).textTheme.headline5,),
+            ],
+          ),
         ],
       ),
     );

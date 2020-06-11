@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste/screens/productsList.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String title;
@@ -27,7 +28,9 @@ class CustomDrawer extends StatelessWidget {
           ),
           CustomListTile(
             title: "Acervo",
-            onClick: () {},
+            onClick: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductListScreen()));
+            },
           ),
           CustomListTile(
             title: 'Atividades',
