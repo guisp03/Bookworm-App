@@ -38,50 +38,82 @@ class _ProductScreenState extends State<ProductScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset('assets/images/fundoEscuro.png', fit: BoxFit.cover),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 75.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: 200,
-                          width: 130,
-                          child: Image.asset(
-                            'assets/images/orgulho.jpg',
-                            fit: BoxFit.cover,
-                          ),
+          Image.asset('assets/images/fundoClaro.jpeg', fit: BoxFit.cover),
+          Container(
+            color: Color.fromRGBO(25, 50, 60, 0.85),
+            margin: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 10),
+            child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                                'Orgulho e Preconceito',
+                                    style: Theme.of(context).textTheme.subtitle2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 250,
+                                      width: 190,
+                                      padding: const EdgeInsets.only(right: 10, left: 15, bottom: 20, top: 10),
+                                      child: Image.asset(
+                                        'assets/images/orgulho.jpg',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                        'CÓD: XYZABC\n',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                    Text(
+                                        'Editora: José \nOlympio\n',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                    Text(
+                                        'Ano edição: 2019\n',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                    Text(
+                                        'Exemplares \ndisponíneis: 2',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                    CupertinoButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _selectDate(context);
+                                        });
+                                      },
+                                      child: Text(
+                                        'Reservar',
+                                        style: Theme.of(context).textTheme.bodyText1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: <Widget>[
+
+                                    ProductDescriptionExpanded(
+                                        'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        ProductDescriptionExpanded('Orgulho e Preconceito\n',
-                            'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.'),
-                      ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CupertinoButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectDate(context);
-                        });
-                      },
-                      child: Text(
-                        'Reservar',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
-          )
-        ],
+          ),
+          ],
       ),
       drawer: CustomDrawer(),
     );
@@ -89,10 +121,9 @@ class _ProductScreenState extends State<ProductScreen> {
 }
 
 class ProductDescriptionExpanded extends StatefulWidget {
-  final String name;
   final String description;
 
-  ProductDescriptionExpanded(this.name, this.description);
+  ProductDescriptionExpanded(this.description);
 
   @override
   _ProductDescriptionExpandedState createState() =>
@@ -109,10 +140,10 @@ class _ProductDescriptionExpandedState
   void initState() {
     super.initState();
 
-    if (widget.description.length > 200) {
-      description1 = widget.description.substring(0, 200);
+    if (widget.description.length > 97) {
+      description1 = widget.description.substring(0, 97);
       description2 =
-          widget.description.substring(50, widget.description.length);
+          widget.description.substring(97, widget.description.length);
     } else {
       description1 = widget.description;
       description2 = '';
@@ -122,26 +153,37 @@ class _ProductDescriptionExpandedState
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(top: 10),
+      width: 190,
       child: description2.isEmpty
           ? _productDescriptionText(context)
           : Column(
-              children: <Widget>[
-                _productDescriptionText(context),
-                FlatButton(
-                  onPressed: () {
-                    setState(
-                      () {
-                        flag = !flag;
-                      },
-                    );
-                  },
-                  child: Text(
-                    flag ? "Leia mais" : "Leia menos",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-              ],
+        children: <Widget>[
+          Text(
+            'Autora: Jane Austen\n',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            'Gênero: Romance, \nFicção\n',
+            style: Theme.of(context).textTheme.bodyText1,
+
+          ),
+          _productDescriptionText(context),
+          FlatButton(
+            onPressed: () {
+              setState(
+                    () {
+                  flag = !flag;
+                },
+              );
+            },
+            child: Text(
+              flag ? "Leia mais" : "Leia menos",
+              style: Theme.of(context).textTheme.bodyText2,
             ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -149,8 +191,9 @@ class _ProductDescriptionExpandedState
     return Container(
       width: 250.0,
       child: RichText(
-        text: TextSpan(
-          text: widget.name,
+        textAlign: TextAlign.left,
+        text:
+        TextSpan(
           style: Theme.of(context).textTheme.subtitle1,
           children: <TextSpan>[
             TextSpan(
