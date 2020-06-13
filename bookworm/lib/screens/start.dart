@@ -11,9 +11,12 @@ class StartScreen extends StatelessWidget {
             'assets/images/fundoClaro.jpeg',
             fit: BoxFit.cover,
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/logo.png',
+          Container(
+            color: Color.fromRGBO(255, 255, 255, 0.25),
+            child: Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+              ),
             ),
           )
         ],
