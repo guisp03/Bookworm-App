@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste/components/customAppBar.dart';
 import 'package:teste/components/customDrawer.dart';
@@ -13,10 +14,13 @@ class ProductListScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/fundoEscuro.png',
+            'assets/images/fundoClaro.jpeg',
             fit: BoxFit.cover,
           ),
-          _books(),
+          Container(
+            margin: const EdgeInsets.only(top: 100),
+            color: Color.fromRGBO(25, 50, 60, 0.85),
+              child: _books()),
         ],
       ),
       drawer: CustomDrawer(),
@@ -29,22 +33,22 @@ class ProductListScreen extends StatelessWidget {
         return i == 0
             ? _search()
             : Column(
-                children: <Widget>[
-                  Text(
-                    'Qualquer texto',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 24.0, bottom: 24.0, right: 48.0, left: 48.0),
-                    child: SizedBox(
-                      height: 200,
-                      child: _booksByCategorie(),
-                    ),
-                  ),
-                ],
-              );
+          children: <Widget>[
+            Text(
+              'Qualquer texto',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 24.0, bottom: 24.0, right: 48.0, left: 48.0),
+              child: SizedBox(
+                height: 200,
+                child: _booksByCategorie(),
+              ),
+            ),
+          ],
+        );
       },
     );
   }
@@ -77,7 +81,7 @@ class ProductListScreen extends StatelessWidget {
 
 Padding _search() {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.all(15),
     child: TextField(
       style: TextStyle(fontSize: 25, height: 0.5, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
