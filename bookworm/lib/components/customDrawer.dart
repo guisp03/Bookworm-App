@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teste/screens/aboutUs.dart';
 import 'package:teste/screens/productsList.dart';
+import 'package:teste/screens/supportUs.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String title;
@@ -33,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           CustomListTile(
-            title: 'Atividades',
+            title: 'Eventos',
             onClick: () {},
           ),
           CustomListTile(
@@ -42,11 +44,15 @@ class CustomDrawer extends StatelessWidget {
           ),
           CustomListTile(
             title: 'Apoie',
-            onClick: () {},
+            onClick: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SupportUsScreen()));
+            },
           ),
           CustomListTile(
             title: 'Sobre',
-            onClick: () {},
+            onClick: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));
+            },
           ),
           CustomListTile(
             title: 'SAC',

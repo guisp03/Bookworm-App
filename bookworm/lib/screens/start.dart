@@ -8,7 +8,7 @@ class StartScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image.asset(
-            'assets/images/fundoClaro.jpeg',
+            'assets/images/fundo.jpeg',
             fit: BoxFit.cover,
           ),
           Container(

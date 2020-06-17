@@ -1,16 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/customTextField.dart';
-import 'package:teste/main.dart';
-import 'package:teste/screens/forgetPassword.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
+import 'login.dart';
 
-class _LoginScreenState extends State<LoginScreen> {
+class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        'Login',
+                        'Senha',
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       padding: const EdgeInsets.only(bottom: 24.0),
@@ -41,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1,
                       ),
                       Color.fromRGBO(25, 50, 60, 0.85),
-                      'Email',
+                      'Nova Senha',
                       TextStyle(
                         color: Color.fromRGBO(252, 252, 252, 1),
                       ),
@@ -53,23 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1,
                       ),
                       Color.fromRGBO(25, 50, 60, 0.85),
-                      'Senha',
+                      'Confirmar Senha',
                       TextStyle(
                         color: Color.fromRGBO(252, 252, 252, 1),
                       ),
                       null,
-                    ),
-                    ClickableText(
-                      () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
-                      },
-                      Text(
-                        'Esqueci a minha senha',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: BookwormApp.darkBlue,
-                        ),
-                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -79,9 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         left: 48.0,
                       ),
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        },
                         child: Text(
-                          'Entrar',
+                          'Login',
                           style: TextStyle(
                               fontSize: 30.0,
                               color: Color.fromRGBO(255, 255, 255, 1)),
@@ -98,42 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     )
-                    /*Container(
-                      width: 320,
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: TextField(
-                        style: TextStyle(
-                          fontSize: 30,
-                          height: 1,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle:
-                              TextStyle(color: Color.fromRGBO(252, 252, 252, 1)),
-                          filled: true,
-                          fillColor: Color.fromRGBO(25, 50, 60, 0.85),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(40))),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 320,
-                      child: TextField(
-                        style: TextStyle(fontSize: 30, height: 1),
-                        decoration: InputDecoration(
-                          labelText: 'Senha',
-                          labelStyle:
-                              TextStyle(color: Color.fromRGBO(252, 252, 252, 1)),
-                          filled: true,
-                          fillColor: Color.fromRGBO(25, 50, 60, 0.85),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(40))),
-                        ),
-                      ),
-                    ),*/
                   ],
                 ),
               ),

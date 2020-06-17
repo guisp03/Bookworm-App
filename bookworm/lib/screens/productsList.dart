@@ -1,55 +1,61 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste/components/customAppBar.dart';
-import 'package:teste/components/customDrawer.dart';
+import 'package:teste/components/customTextField.dart';
+import 'package:teste/components/pageModel.dart';
 import 'package:teste/screens/product.dart';
 
 class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(title: 'Acervo'),
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image.asset(
-            'assets/images/fundoClaro.jpeg',
-            fit: BoxFit.cover,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 100),
-            color: Color.fromRGBO(25, 50, 60, 0.85),
-              child: _books()),
-        ],
-      ),
-      drawer: CustomDrawer(),
+    return PageModelScreen(
+      'Acervo',
+      _books(context),
     );
   }
 
-  ListView _books() {
-    return ListView.builder(
-      itemBuilder: (context, i) {
-        return i == 0
-            ? _search()
-            : Column(
-          children: <Widget>[
-            Text(
-              'Qualquer texto',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 24.0, bottom: 24.0, right: 48.0, left: 48.0),
-              child: SizedBox(
-                height: 200,
-                child: _booksByCategorie(),
-              ),
-            ),
-          ],
-        );
-      },
+  MediaQuery _books(BuildContext context) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: ListView.builder(
+        itemBuilder: (context, i) {
+          return i == 0
+              ? CustomTextField(
+                  TextStyle(
+                    fontSize: 25,
+                    height: 0.75,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  Color.fromRGBO(170, 187, 2014, 0.9),
+                  'Pesquisar',
+                  TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                  Icon(Icons.search),
+                )
+              : Column(
+                  children: <Widget>[
+                    Text(
+                      'Qualquer texto',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 14.0,
+                        bottom: 14.0,
+                        right: 38.0,
+                        left: 38.0,
+                      ),
+                      child: SizedBox(
+                        height: 200,
+                        child: _booksByCategorie(),
+                      ),
+                    ),
+                  ],
+                );
+        },
+      ),
     );
   }
 
@@ -73,25 +79,8 @@ class ProductListScreen extends StatelessWidget {
       child: Container(
         width: 130,
         color: Colors.white70,
-        margin: EdgeInsets.only(right: 56),
+        margin: EdgeInsets.only(right: 46),
       ),
     );
   }
-}
-
-Padding _search() {
-  return Padding(
-    padding: const EdgeInsets.all(15),
-    child: TextField(
-      style: TextStyle(fontSize: 25, height: 0.5, fontWeight: FontWeight.bold),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Color.fromRGBO(170, 187, 2014, 0.9),
-        border: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(25))),
-        icon: Icon(Icons.search),
-        hintText: 'Pesquise por título, gênero...',
-      ),
-    ),
-  );
 }
