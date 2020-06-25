@@ -45,7 +45,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         _productInformation(
                             context, 'Exemplares \ndisponíneis: 2'),
                         ClickableText(
-                          () {},
+                              () {},
                           Text(
                             'Reservar',
                             style: Theme.of(context).textTheme.bodyText1,
@@ -53,15 +53,26 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ],
                     ),
+
                     Column(
                       children: <Widget>[
                         _productInformation(context, 'Autora: Jane Austen'),
-                        _productInformation(
-                            context, 'Gênero: Romance, \nFicção'),
+                        _productInformation(context, 'Gênero: Romance, \nFicção'),
                         ProductDescriptionExpanded(
                             'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.'),
                       ],
                     )
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    ClickableText(
+                          () {},
+                      Text(
+                        'Adicionar aos favoritos',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
                   ],
                 ),
               ],
