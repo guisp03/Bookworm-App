@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:teste/screens/aboutUs.dart';
+import 'package:teste/screens/forgotMyPassword.dart';
 import 'package:teste/screens/login.dart';
+import 'package:teste/screens/product.dart';
 import 'package:teste/screens/productsList.dart';
+import 'package:teste/screens/start.dart';
+import 'package:teste/screens/supportUs.dart';
 
 void main() => runApp(BookwormApp());
 
@@ -20,7 +25,7 @@ class BookwormApp extends StatelessWidget {
           headline6: TextStyle(
             fontFamily: 'JosefinSans',
             fontSize: 35.0,
-            color: Colors.white,
+            color: Color.fromRGBO(252, 252, 252, 1),
           ),
           headline5: TextStyle(
             fontFamily: 'JosefinSans',
@@ -29,21 +34,21 @@ class BookwormApp extends StatelessWidget {
           subtitle1: TextStyle(
             fontFamily: 'JosefinSans',
             fontSize: 25.0,
-            color: Colors.white,
+            color: Color.fromRGBO(252, 252, 252, 1),
           ),
           subtitle2: TextStyle(
             fontFamily: 'JosefinSans',
             fontSize: 30.0,
-            color: Colors.white,
+            color: Color.fromRGBO(252, 252, 252, 1),
           ),
           bodyText1: TextStyle(
             fontFamily: 'JosefinSans',
-            fontSize: 16.0,
-            color: Colors.white,
+            fontSize: 20.0,
+            color: Color.fromRGBO(252, 252, 252, 1),
           ),
           bodyText2: TextStyle(
             fontFamily: 'JosefinSans',
-            fontSize: 22.0,
+            fontSize: 20.0,
             color: Color.fromRGBO(252, 252, 252, 0.6),
           ),
         ),
