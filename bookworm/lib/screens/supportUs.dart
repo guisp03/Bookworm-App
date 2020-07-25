@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:teste/components/pageModel.dart';
+import 'package:teste/components/pageModelInside.dart';
 
 class SupportUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PageModelScreen(
+    return PageModelInsideScreen(
       'Apoie',
       RichText(
         textAlign: TextAlign.left,

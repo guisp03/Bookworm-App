@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/customTextField.dart';
+import 'package:teste/components/outsideButton.dart';
+import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/main.dart';
-import 'package:teste/screens/forgetPassword.dart';
+import 'package:teste/screens/forgotMyPassword.dart';
+import 'package:teste/screens/productsList.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,131 +15,67 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
+    debugPrint(MediaQuery.of(context).size.height.toString());
+    debugPrint(MediaQuery.of(context).size.width.toString());
+    debugPrint((MediaQuery.of(context).textScaleFactor).toString());
+    return PageModelOutside(
+      80,
+      "Login",
+      88.0,
+      Column(
         children: <Widget>[
-          Image.asset(
-            'assets/images/fundo.jpeg',
-            fit: BoxFit.cover,
+          CustomTextField(
+            TextStyle(
+              fontSize: 30.0,
+              height: 1,
+            ),
+            false,
+            Color.fromRGBO(25, 50, 60, 0.85),
+            'Email',
+            TextStyle(
+              color: Color.fromRGBO(252, 252, 252, 1),
+            ),
+            null,
           ),
-          Container(
-            color: Color.fromRGBO(255, 255, 255, 0.25),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 88.0),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'Login',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      padding: const EdgeInsets.only(bottom: 24.0),
-                    ),
-                    CustomTextField(
-                      TextStyle(
-                        fontSize: 30.0,
-                        height: 1,
-                      ),
-                      Color.fromRGBO(25, 50, 60, 0.85),
-                      'Email',
-                      TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                      ),
-                      null,
-                    ),
-                    CustomTextField(
-                      TextStyle(
-                        fontSize: 30.0,
-                        height: 1,
-                      ),
-                      Color.fromRGBO(25, 50, 60, 0.85),
-                      'Senha',
-                      TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                      ),
-                      null,
-                    ),
-                    ClickableText(
-                      () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
-                      },
-                      Text(
-                        'Esqueci a minha senha',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: BookwormApp.darkBlue,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 24.0,
-                        bottom: 24.0,
-                        right: 48.0,
-                        left: 48.0,
-                      ),
-                      child: FlatButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Entrar',
-                          style: TextStyle(
-                              fontSize: 30.0,
-                              color: Color.fromRGBO(255, 255, 255, 1)),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                        color: Color.fromRGBO(25, 50, 60, 1),
-                        padding: const EdgeInsets.only(
-                          top: 16.0,
-                          bottom: 16.0,
-                          right: 112.0,
-                          left: 112.0,
-                        ),
-                      ),
-                    )
-                    /*Container(
-                      width: 320,
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: TextField(
-                        style: TextStyle(
-                          fontSize: 30,
-                          height: 1,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle:
-                              TextStyle(color: Color.fromRGBO(252, 252, 252, 1)),
-                          filled: true,
-                          fillColor: Color.fromRGBO(25, 50, 60, 0.85),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(40))),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 320,
-                      child: TextField(
-                        style: TextStyle(fontSize: 30, height: 1),
-                        decoration: InputDecoration(
-                          labelText: 'Senha',
-                          labelStyle:
-                              TextStyle(color: Color.fromRGBO(252, 252, 252, 1)),
-                          filled: true,
-                          fillColor: Color.fromRGBO(25, 50, 60, 0.85),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(40))),
-                        ),
-                      ),
-                    ),*/
-                  ],
+          CustomTextField(
+            TextStyle(
+              fontSize: 30.0,
+              height: 1,
+            ),
+            true,
+            Color.fromRGBO(25, 50, 60, 0.85),
+            'Senha',
+            TextStyle(
+              color: Color.fromRGBO(252, 252, 252, 1),
+            ),
+            null,
+          ),
+          ClickableText(
+            0.0,
+            0.0,
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ForgotMyPasswordScreen(),
                 ),
+              );
+            },
+            Text(
+              'Esqueci a minha senha',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: BookwormApp.darkBlue,
               ),
             ),
+          ),
+          OutsideButton(
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProductListScreen()));
+            },
+            'Entrar',
+            80.0,
           ),
         ],
       ),

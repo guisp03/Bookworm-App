@@ -11,6 +11,14 @@ class CustomAppBar extends PreferredSize {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: IconButton(
+          icon: ImageIcon(
+            AssetImage("assets/images/livrosmenu.png"),
+            size: 36.0,
+          ),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          }),
       title: Text(
         title,
         style: Theme.of(context).textTheme.headline6,

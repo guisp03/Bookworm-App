@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextStyle style;
+  final bool isPassword;
   final Color color;
-  final String labelText;
-  final TextStyle labelStyle;
-  final Icon icon;
+  final String hintText;
+  final TextStyle hintStyle;
+  final IconData icon;
 
   const CustomTextField(
     this.style,
+    this.isPassword,
     this.color,
-    this.labelText,
-    this.labelStyle,
+    this.hintText,
+    this.hintStyle,
     this.icon,
   );
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         top: 24.0,
         bottom: 24.0,
         right: 48.0,
@@ -26,6 +28,7 @@ class CustomTextField extends StatelessWidget {
       ),
       child: TextField(
         style: style,
+        obscureText: isPassword,
         decoration: InputDecoration(
           filled: true,
           fillColor: color,
@@ -34,9 +37,13 @@ class CustomTextField extends StatelessWidget {
               Radius.circular(40.0),
             ),
           ),
-          labelText: labelText,
-          labelStyle: labelStyle,
-          prefixIcon: icon,
+          hintText: hintText,
+          hintStyle: hintStyle,
+          suffixIcon: Icon(
+            icon,
+            color: Color.fromRGBO(25, 50, 60, 1),
+            size: 36.0
+          ),
         ),
       ),
     );

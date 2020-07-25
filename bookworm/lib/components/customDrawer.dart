@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:teste/components/clickableIcon.dart';
+import 'package:teste/components/customAlertDialog.dart';
+import 'package:teste/components/textWithIcon.dart';
 import 'package:teste/screens/aboutUs.dart';
+import 'package:teste/screens/events.dart';
+import 'package:teste/screens/home.dart';
+import 'package:teste/screens/login.dart';
+import 'package:teste/screens/myAccount.dart';
 import 'package:teste/screens/productsList.dart';
+import 'package:teste/screens/sac.dart';
 import 'package:teste/screens/supportUs.dart';
+
+import 'clickableText.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String title;
@@ -15,52 +25,124 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(
-            height: 80.0,
+            height: 110.0,
             child: DrawerHeader(
-              child: Text(
-                'Olá',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 24.0,
+                    backgroundImage: AssetImage("assets/images/mario.jpg"),
+                  ),
+                  Text(
+                    "Olá",
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  ClickableIcon(() {
+                    Navigator.pop(context);
+                  }, AssetImage("assets/images/livrosmenu.png"), 36.0),
+                ],
               ),
             ),
           ),
-          CustomListTile(
-            title: "Início",
-            onClick: () {},
-          ),
-          CustomListTile(
-            title: "Acervo",
-            onClick: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductListScreen()));
+          _drawerItems(
+            context,
+            "Início",
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
             },
           ),
-          CustomListTile(
-            title: 'Eventos',
-            onClick: () {},
-          ),
-          CustomListTile(
-            title: 'Minha Conta',
-            onClick: () {},
-          ),
-          CustomListTile(
-            title: 'Apoie',
-            onClick: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SupportUsScreen()));
+          _drawerItems(
+            context,
+            "Acervo",
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProductListScreen()));
             },
           ),
-          CustomListTile(
-            title: 'Sobre',
-            onClick: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));
+          _drawerItems(
+            context,
+            'Eventos',
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EventsScreen()));
             },
           ),
-          CustomListTile(
-            title: 'SAC',
-            onClick: () {},
+          _drawerItems(
+            context,
+            'Minha Conta',
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyAccountScreen()));
+            },
           ),
-          CustomListTile(
-            title: "Sair",
-            onClick: () {},
+          _drawerItems(
+            context,
+            'Apoie',
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SupportUsScreen()));
+            },
+          ),
+          _drawerItems(
+            context,
+            'Sobre',
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutUsScreen()));
+            },
+          ),
+          _drawerItems(
+            context,
+            'SAC',
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SacScreen()));
+            },
+          ),
+          _drawerItems(
+            context,
+            "Sair",
+            () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => CustomAlertDialog(
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "Poxa, já está de saída? :( \n\nEstaremos te esperando, por isso, volte logo!",
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          ClickableText(
+                            16.0,
+                            0.0,
+                            () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()));
+                            },
+                            TextWithIcon(
+                              AssetImage("assets/images/sair.png"),
+                              Text(
+                                "Sair",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -68,24 +150,13 @@ class CustomDrawer extends StatelessWidget {
   }
 }
 
-class CustomListTile extends StatelessWidget {
-  final String title;
-  final Function onClick;
-
-  const CustomListTile({
-    @required this.title,
-    @required this.onClick,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.subtitle1,
-        textAlign: TextAlign.center,
-      ),
-      onTap: () => onClick(),
-    );
-  }
+ListTile _drawerItems(BuildContext context, String title, Function onClick) {
+  return ListTile(
+    title: Text(
+      title,
+      style: Theme.of(context).textTheme.subtitle1,
+      textAlign: TextAlign.center,
+    ),
+    onTap: () => onClick(),
+  );
 }
