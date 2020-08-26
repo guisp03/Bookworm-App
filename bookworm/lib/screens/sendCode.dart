@@ -7,6 +7,8 @@ import 'package:teste/screens/changePassword.dart';
 import '../main.dart';
 
 class SendCodeScreen extends StatelessWidget {
+  final TextEditingController _codigoContoller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return PageModelOutside(
@@ -31,6 +33,7 @@ class SendCodeScreen extends StatelessWidget {
                 color: Color.fromRGBO(252, 252, 252, 1),
               ),
               null,
+              _codigoContoller
             ),
           ),
           ClickableText(

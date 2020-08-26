@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextStyle hintStyle;
   final IconData icon;
+  final TextEditingController controller;
 
   const CustomTextField(
     this.style,
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.hintStyle,
     this.icon,
+    this.controller,
   );
 
   @override
@@ -45,6 +47,7 @@ class CustomTextField extends StatelessWidget {
             size: 36.0
           ),
         ),
+        controller: controller,
       ),
     );
   }

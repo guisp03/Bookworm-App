@@ -5,6 +5,9 @@ import 'package:teste/components/pageModelOutside.dart';
 import 'login.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
+  final TextEditingController _senhaController = TextEditingController();
+  final TextEditingController _confirmarController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return PageModelOutside(
@@ -26,6 +29,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 color: Color.fromRGBO(252, 252, 252, 1),
               ),
               null,
+              _senhaController
             ),
           ),
           CustomTextField(
@@ -37,6 +41,7 @@ class ChangePasswordScreen extends StatelessWidget {
               color: Color.fromRGBO(252, 252, 252, 1),
             ),
             null,
+            _confirmarController
           ),
           OutsideButton(
             () {

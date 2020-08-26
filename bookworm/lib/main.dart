@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teste/screens/login.dart';
-import 'package:teste/screens/sac.dart';
 import 'package:teste/screens/start.dart';
-import 'package:teste/screens/myAccount.dart';
 
 void main() => runApp(BookwormApp());
 

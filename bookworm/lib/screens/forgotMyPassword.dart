@@ -5,6 +5,8 @@ import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/screens/sendCode.dart';
 
 class ForgotMyPasswordScreen extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return PageModelOutside(
@@ -39,6 +41,7 @@ class ForgotMyPasswordScreen extends StatelessWidget {
               color: Color.fromRGBO(252, 252, 252, 1),
             ),
             null,
+            _emailController
           ),
           OutsideButton(
             () {

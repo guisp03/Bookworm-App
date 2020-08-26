@@ -13,11 +13,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
-    debugPrint(MediaQuery.of(context).size.height.toString());
-    debugPrint(MediaQuery.of(context).size.width.toString());
-    debugPrint((MediaQuery.of(context).textScaleFactor).toString());
     return PageModelOutside(
       80,
       "Login",
@@ -36,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Color.fromRGBO(252, 252, 252, 1),
             ),
             null,
+            _emailController
           ),
           CustomTextField(
             TextStyle(
@@ -49,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Color.fromRGBO(252, 252, 252, 1),
             ),
             null,
+            _senhaController
           ),
           ClickableText(
             0.0,
