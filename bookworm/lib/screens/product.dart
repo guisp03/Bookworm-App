@@ -5,6 +5,26 @@ import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
 
 class ProductScreen extends StatefulWidget {
+  final String nomeProduto;
+  final ImageProvider imagem;
+  final String editora;
+  final String anoEdicao;
+  final String exemplares;
+  final String autores;
+  final String nomeGenero;
+  final String descricao;
+
+  const ProductScreen(
+    this.nomeProduto,
+    this.imagem,
+    this.editora,
+    this.anoEdicao,
+    this.exemplares,
+    this.autores,
+    this.nomeGenero,
+    this.descricao,
+  );
+
   @override
   _ProductScreenState createState() => _ProductScreenState();
 }
@@ -24,7 +44,7 @@ class _ProductScreenState extends State<ProductScreen> {
             Column(
               children: <Widget>[
                 Text(
-                  'Orgulho e Preconceito',
+                  widget.nomeProduto,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 Row(
@@ -37,16 +57,18 @@ class _ProductScreenState extends State<ProductScreen> {
                           padding: EdgeInsets.only(top: 16),
                           height: 240.0,
                           width: 156.0,
-                          child: Image.asset(
-                            'assets/images/orgulho.jpg',
+                          child: Image(
+                            image: widget.imagem,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        _productInformation(context, 'CÓD: XYZABC'),
-                        _productInformation(context, 'Editora: José \nOlympio'),
-                        _productInformation(context, 'Ano edição: 2019'),
+                        //_productInformation(context, 'CÓD: XYZABC'),
                         _productInformation(
-                            context, 'Exemplares \ndisponíneis: 2'),
+                            context, 'Editora: ' + widget.editora),
+                        _productInformation(
+                            context, 'Ano edição: ' + widget.anoEdicao),
+                        _productInformation(context,
+                            'Exemplares \ndisponíneis: ' + widget.exemplares),
                         ClickableText(
                           16.0,
                           0.0,
@@ -135,11 +157,11 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     Column(
                       children: <Widget>[
-                        _productInformation(context, 'Autora: Jane Austen'),
                         _productInformation(
-                            context, 'Gênero: Romance, \nFicção'),
-                        _ExpandedText(
-                            'A história de um amor improvável em uma época em que sentimentos poderiam não ser suficientes. \n Quando Elizabeth Bennet conhece o cobiçado Fitzwilliam Darcy, não hesita em julgá-lo arrogante e presunçoso, afinal ele parece desprezar sua companhia, assim como a de todo mundo, demonstrando um temperamento rude e orgulhoso, impossível de agradar. Após descobrir o envolvimento do detestável cavalheiro nos eventos que separaram sua querida irmã, Jane, do jovem Bingley, Elizabeth está determinada a odiá-lo ainda mais. Uma surpreendente reviravolta, porém, poderá provar que as primeiras impressões nem sempre são incontestáveis.')
+                            context, 'Autores: ' + widget.autores),
+                        _productInformation(
+                            context, 'Gênero: ' + widget.nomeGenero),
+                        _ExpandedText(widget.descricao)
                       ],
                     )
                   ],

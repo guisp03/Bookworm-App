@@ -16,29 +16,31 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return PageModelInsideScreen(
-      'Acervo',
-      SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            CustomTextField(
-                TextStyle(
-                  fontSize: 25.0,
-                  height: 0.75,
-                  fontWeight: FontWeight.bold,
-                ),
-                false,
-                Color.fromRGBO(170, 187, 2014, 0.9),
-                null,
-                TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                ),
-                Icons.search,
-                _produtoController
-              ),
-              GenerosListView(),
-          ],
-        ),
-      )
-    );
+        'Acervo',
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              CustomTextField(
+                  TextStyle(
+                    fontSize: 25.0,
+                    height: 0.75,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  false,
+                  Color.fromRGBO(170, 187, 2014, 0.9),
+                  null,
+                  TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                  Icons.search,
+                  _produtoController),
+              MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: GenerosListView(),
+              )
+            ],
+          ),
+        ));
   }
 }
