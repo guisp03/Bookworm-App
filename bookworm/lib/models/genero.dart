@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:teste/screens/product.dart';
 
 class Genero {
-  final int id;
+  final int idGenero;
   final String nomeGenero;
 
   Genero(
-    this.id,
+    this.idGenero,
     this.nomeGenero,
   );
 }
@@ -33,6 +33,16 @@ class Produto {
     this.editora,
     this.descricao,
     this.imagem,
+  );
+}
+
+class GeneroProduto {
+  final int idGenero;
+  final int idProduto;
+
+  GeneroProduto(
+    this.idGenero,
+    this.idProduto,
   );
 }
 

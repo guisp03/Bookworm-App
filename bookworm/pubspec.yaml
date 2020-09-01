@@ -29,7 +29,7 @@ dev_dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  http:
+  http: ^0.12.2
   http_interceptor:
   
 

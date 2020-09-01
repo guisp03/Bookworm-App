@@ -1,29 +1,33 @@
-import 'dart:ui';
-
 class Leitor{
-  final int IDLeitor;
-  final int IDTipoLeitor;
-  final String Nome;
-  final String CPF;
-  final String RG;
-  final String DataNasc;
-  final String Endereco;
-  final String Telefone;
-  final String Email;
-  final String Senha;
-  final Image ImagemLeitor;
+  //final int idLeitor;
+  //final int idTipoLeitor;
+  //final String nome;
+  //final String cpf;
+  //final String rg;
+  //final String dataNasc;
+  //final String endereco;
+  //final String telefone;
+  final String email;
+  final String senha;
+  //final Image imagemLeitor;
 
   Leitor(
-      this.IDLeitor,
-      this.IDTipoLeitor,
-      this.Nome,
-      this.CPF,
-      this.RG,
-      this.DataNasc,
-      this.Endereco,
-      this.Telefone,
-      this.Email,
-      this.Senha,
-      this.ImagemLeitor,
+    //  this.idLeitor,
+      //this.idTipoLeitor,
+      //this.nome,
+      //this.cpf,
+      //this.rg,
+      //this.dataNasc,
+      //this.endereco,
+      //this.telefone,
+      this.email,
+      this.senha,
+      //this.imagemLeitor,
       );
+
+      Map<String, dynamic> toJson() =>
+      {
+        'email': email,
+        'senha': senha,
+      };
 }

@@ -6,6 +6,7 @@ import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/main.dart';
 import 'package:teste/screens/forgotMyPassword.dart';
 import 'package:teste/screens/productsList.dart';
+import 'package:teste/http/connection.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,7 +16,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           OutsideButton(
             () {
+              Login().login();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProductListScreen()));
             },
