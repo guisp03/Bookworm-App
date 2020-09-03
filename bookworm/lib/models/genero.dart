@@ -14,22 +14,20 @@ class Genero {
 
 class Produto {
   final int idProduto;
-  //final int TipoAcervo;
   final String nomeProduto;
   final String autores;
   final String anoEdicao;
-  //final String TipoProduto;
+  final String tipoProduto;
   final String editora;
   final String descricao;
   final ImageProvider imagem;
 
   Produto(
     this.idProduto,
-    //this.TipoAcervo,
     this.nomeProduto,
     this.autores,
     this.anoEdicao,
-    //this.TipoProduto,
+    this.tipoProduto,
     this.editora,
     this.descricao,
     this.imagem,
@@ -49,7 +47,7 @@ class GeneroProduto {
 class GenerosListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Produto> produtosFantasia = [
+ /*   List<Produto> produtosFantasia = [
       Produto(
         1,
         "As crônicas de Nárnia \n Volume único",
@@ -97,7 +95,7 @@ class GenerosListView extends StatelessWidget {
     };
 
     return _generosListView(map);
-  }
+  }*/
 
   ListView _generosListView(data) {
     List generos = data.keys.toList();

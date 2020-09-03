@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:teste/components/customTextField.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/genero.dart';
-import 'package:teste/screens/product.dart';
 
 class ProductListScreen extends StatefulWidget {
   @override

@@ -1,9 +1,15 @@
-class TipoLeitor{
-  final int IDTipoLeitor;
-  final String Tipo;
+class TipoLeitor {
+  final int idTipoLeitor;
+  final String tipo;
 
-  TipoLeitor(
-      this.IDTipoLeitor,
-      this.Tipo,
-      );
+  TipoLeitor(this.idTipoLeitor, this.tipo);
+
+  TipoLeitor.fromJson(Map<String, dynamic> json)
+      : idTipoLeitor = json['idTipoLeitor'],
+        tipo = json['tipo'];
+
+  Map<String, dynamic> toJson() => {
+        'idTipoLeitor': idTipoLeitor,
+        'tipo': tipo,
+      };
 }

@@ -8,8 +8,7 @@ class StartScreen extends StatefulWidget {
 }
 
 class StartScreenState extends State<StartScreen> {
-  @override
-    void navigationToNextPage(){
+  void navigationToNextPage(){
 
     Navigator.pushReplacementNamed(context, '/LoginScreen');
 

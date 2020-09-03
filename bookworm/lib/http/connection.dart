@@ -1,6 +1,6 @@
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:teste/models/leitor.dart';
 import 'dart:convert';
+import 'package:http/http.dart';
 
 class LoggingInterceptor implements InterceptorContract {
   @override
@@ -27,14 +27,17 @@ final HttpClientWithInterceptor client = HttpClientWithInterceptor.build(
   requestTimeout: Duration(seconds: 5),
 );
 
-const String baseUrl = 'https://10.0.2.2:44360/';
+const String baseUrl = 'https://192.168.0.6:45456/';
 
 class Login {
-  String oi = jsonEncode(Leitor("@email", "123").toJson());
-    void login() async {
-     var response = await client.post(baseUrl, body: oi);
+  String oi = jsonEncode({"Email": "@email", "Senha":"123"});
+    Future<int> login() async {
+     Response response = await client.post(baseUrl,body: oi);
      if (response.statusCode == 200) {
-       print(response);
+       return json.decode(response.body);
+     }
+     else{
+       return 0;
      }
    }
 }
