@@ -1,15 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teste/screens/product.dart';
+import 'package:teste/http/connection.dart';
+import 'dart:convert';
+import 'package:http/http.dart';
 
 class Genero {
   final int idGenero;
   final String nomeGenero;
 
-  Genero(
-    this.idGenero,
-    this.nomeGenero,
-  );
+  Genero(this.idGenero, this.nomeGenero);
+
+  Genero.fromJson(Map<String, dynamic> json)
+      : idGenero = json['idGenero'],
+        nomeGenero = json['nomeGenero'];
+
+  Map<String, dynamic> toJson() => {
+    'idGenero': idGenero,
+    'nomeGenero': nomeGenero,
+  };
+  Future<Genero> getGenero() async{
+    final Response response = await client.get(baseUrl);
+    return Genero.fromJson(jsonDecode(response.body));
+  }
+
+  Future<Genero> putGenero(Genero genero) async{
+    final Response response = await client.put(baseUrl, body: genero);
+    return Genero.fromJson(jsonDecode(response.body));
+  }
 }
 
 class Produto {
@@ -23,15 +41,15 @@ class Produto {
   final ImageProvider imagem;
 
   Produto(
-    this.idProduto,
-    this.nomeProduto,
-    this.autores,
-    this.anoEdicao,
-    this.tipoProduto,
-    this.editora,
-    this.descricao,
-    this.imagem,
-  );
+      this.idProduto,
+      this.nomeProduto,
+      this.autores,
+      this.anoEdicao,
+      this.tipoProduto,
+      this.editora,
+      this.descricao,
+      this.imagem,
+      );
 }
 
 class GeneroProduto {
@@ -39,15 +57,15 @@ class GeneroProduto {
   final int idProduto;
 
   GeneroProduto(
-    this.idGenero,
-    this.idProduto,
-  );
+      this.idGenero,
+      this.idProduto,
+      );
 }
 
 class GenerosListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
- /*   List<Produto> produtosFantasia = [
+    /*   List<Produto> produtosFantasia = [
       Produto(
         1,
         "As crônicas de Nárnia \n Volume único",
@@ -67,7 +85,6 @@ class GenerosListView extends StatelessWidget {
         AssetImage("assets/images/raio.jpg"),
       ),
     ];
-
     List<Produto> produtosRomance = [
       Produto(
         2,
@@ -88,77 +105,80 @@ class GenerosListView extends StatelessWidget {
         AssetImage("assets/images/estrela.jpg"),
       )
     ];
-
     Map<Genero, List<Produto>> map = {
       Genero(1, "Fantasia"): produtosFantasia,
       Genero(2, "Romance"): produtosRomance,
     };
-
     return _generosListView(map);
   }*/
 
-  ListView _generosListView(data) {
-    List generos = data.keys.toList();
-    List listProdutos = data.values.toList();
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: ScrollPhysics(),
-        itemCount: data.length,
-        itemBuilder: (context, i) {
-          return Column(
-            children: <Widget>[
-              Text(
-                generos[i].nomeGenero,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 14,
-                  bottom: 14,
-                  right: 38,
-                  left: 38,
+    ListView _generosListView(data) {
+      List generos = data.keys.toList();
+      List listProdutos = data.values.toList();
+      return ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: data.length,
+          itemBuilder: (context, i) {
+            return Column(
+              children: <Widget>[
+                Text(
+                  generos[i].nomeGenero,
+                  textAlign: TextAlign.center,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subtitle2,
                 ),
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: listProdutos[i].length,
-                    itemBuilder: (context, j) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductScreen(
-                                listProdutos[i][j].nomeProduto,
-                                listProdutos[i][j].imagem,
-                                listProdutos[i][j].editora,
-                                listProdutos[i][j].anoEdicao,
-                                "",
-                                listProdutos[i][j].autores,
-                                "",
-                                listProdutos[i][j].descricao,
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 14,
+                    bottom: 14,
+                    right: 38,
+                    left: 38,
+                  ),
+                  child: SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listProdutos[i].length,
+                      itemBuilder: (context, j) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductScreen(
+                                      listProdutos[i][j].nomeProduto,
+                                      listProdutos[i][j].imagem,
+                                      listProdutos[i][j].editora,
+                                      listProdutos[i][j].anoEdicao,
+                                      "",
+                                      listProdutos[i][j].autores,
+                                      "",
+                                      listProdutos[i][j].descricao,
+                                    ),
                               ),
+                            );
+                          },
+                          child: Container(
+                            child: Image(
+                              image: listProdutos[i][j].imagem,
+                              fit: BoxFit.cover,
                             ),
-                          );
-                        },
-                        child: Container(
-                          child: Image(
-                            image: listProdutos[i][j].imagem,
-                            fit: BoxFit.cover,
+                            width: 130,
+                            margin: EdgeInsets.only(right: 46),
                           ),
-                          width: 130,
-                          margin: EdgeInsets.only(right: 46),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        });
+              ],
+            );
+          });
+    }
   }
 }
