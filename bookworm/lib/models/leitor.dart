@@ -17,10 +17,28 @@ class Leitor {
   Leitor(this.idLeitor, this.idTipoLeitor, this.nome, this.dataNasc,
       this.endereco, this.telefone, this.email, this.senha, this.imagemLeitor);
 
+  Leitor.fromJson(Map<String, dynamic> json)
+         : idLeitor = json['idLeitor'],
+           idTipoLeitor = json['idTipoLeitor'],
+           nome = json['nome'],
+           dataNasc = json['dataNasc'],
+           endereco = json['endereco'],
+           telefone = json['telefone'],
+           email = json['email'],
+           senha = json['senha'],
+           imagemLeitor = json['imagemLeitor'];
+
   Map<String, dynamic> toJson() => {
-        'email': email,
-        'senha': senha,
-      };
+    'idLeitor':idLeitor,
+    'idTipoLeitor':idTipoLeitor,
+    'nome':nome,
+    'dataNasc':dataNasc,
+    'endereco':endereco,
+    'telefone':telefone,
+    'email': email,
+    'senha': senha,
+    'imagemLeitor':imagemLeitor,
+  };
 
   Future<Leitor> getLeitor() async{
     final Response response = await client.get(baseUrl);
@@ -29,7 +47,7 @@ class Leitor {
 
   Future<Leitor> putLeitor(Leitor leitor) async{
     final Response response = await client.put(baseUrl, body: leitor);
-     return Leitor.fromJson(jsonDecode(response.body));
+    return Leitor.fromJson(jsonDecode(response.body));
   }
 }
 
@@ -44,8 +62,8 @@ class TipoLeitor {
         tipo = json['tipo'];
 
   Map<String, dynamic> toJson() => {
-        'idTipoLeitor': idTipoLeitor,
-        'tipo': tipo,
-      };
+    'idTipoLeitor': idTipoLeitor,
+    'tipo': tipo,
+  };
 }
 
