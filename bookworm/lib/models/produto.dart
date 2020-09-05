@@ -1,4 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:teste/http/connection.dart';
+import 'dart:convert';
+import 'package:http/http.dart';
 
 class Produto {
   final int idProduto;
@@ -11,13 +14,36 @@ class Produto {
   final ImageProvider imagem;
 
   Produto(
-    this.idProduto,
-    this.nome,
-    this.autores,
-    this.anoEdicao,
-    this.tipoProduto,
-    this.editora,
-    this.descricao,
-    this.imagem,
-  );
+      this.idProduto, this.nome, this.autores, this.anoEdicao, this.tipoProduto,
+      this.editora, this.descricao, this.imagem);
+
+  Produto.fromJson(Map<String, dynamic> json)
+      : idProduto = json['idProduto'],
+        nome = json['nome'],
+        autores = json['autores'],
+        anoEdicao = json['anoEdicao'],
+        tipoProduto = json['tipoProduto'],
+        editora = json['editora'],
+        descricao = json['descricao'],
+        imagem = json['imagem'];
+
+  Map<String, dynamic> toJson() => {
+    'idProduto': idProduto,
+    'nome': nome,
+    'autores': autores,
+    'anoEdicao': anoEdicao,
+    'tipoProduto': tipoProduto,
+    'editora': editora,
+    'descricao': descricao,
+    'imagem': imagem,
+  };
+  Future<Produto> getProduto() async{
+    final Response response = await client.get(baseUrl);
+    return Produto.fromJson(jsonDecode(response.body));
+  }
+
+  Future<Produto> putProduto(Produto produto) async{
+    final Response response = await client.put(baseUrl, body: produto);
+    return Produto.fromJson(jsonDecode(response.body));
+  }
 }
