@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:teste/screens/login.dart';
 import 'package:teste/screens/start.dart';
+
 
 void main() => runApp(BookwormApp());
 
@@ -11,6 +13,11 @@ class BookwormApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt','BR')],
       theme: ThemeData(
         primaryColor: darkBlue,
         canvasColor: darkBlue,
