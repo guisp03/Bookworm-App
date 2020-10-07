@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/customAlertDialog.dart';
+import 'package:teste/components/customCalendar.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
 
@@ -15,15 +16,15 @@ class ProductScreen extends StatefulWidget {
   final String descricao;
 
   const ProductScreen(
-    this.nomeProduto,
-    this.imagem,
-    this.editora,
-    this.anoEdicao,
-    this.exemplares,
-    this.autores,
-    this.nomeGenero,
-    this.descricao,
-  );
+      this.nomeProduto,
+      this.imagem,
+      this.editora,
+      this.anoEdicao,
+      this.exemplares,
+      this.autores,
+      this.nomeGenero,
+      this.descricao,
+      );
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
@@ -72,7 +73,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         ClickableText(
                           16.0,
                           0.0,
-                          () {
+                              () {
                             showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -82,7 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ClickableText(
                                       0.0,
                                       0.0,
-                                      () {
+                                          () {
                                         showDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -94,7 +95,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 ClickableText(
                                                   0.0,
                                                   0.0,
-                                                  () {},
+                                                      () {},
                                                   TextWithIcon(
                                                     AssetImage(
                                                         "assets/images/reservar.png"),
@@ -111,16 +112,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                           ),
                                         );
                                       },
-                                      TextWithIcon(
-                                        AssetImage(
-                                            "assets/images/reservar.png"),
-                                        Text(
-                                          'Calendário',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
+                                     CustomCalendar()
                                     ),
                                   ],
                                 ),
@@ -138,7 +130,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         ClickableText(
                           16.0,
                           8.0,
-                          () {
+                              () {
                             setState(() {
                               fav == AssetImage("assets/images/fav.png")
                                   ? fav = AssetImage("assets/images/favp.png")
@@ -222,23 +214,23 @@ class __ExpandedTextState extends State<_ExpandedText> {
       child: description2.isEmpty
           ? _productDescriptionText(context)
           : Column(
-              children: <Widget>[
-                _productDescriptionText(context),
-                ClickableText(
-                  8.0,
-                  8.0,
-                  () {
-                    setState(() {
-                      read = !read;
-                    });
-                  },
-                  Text(
-                    read ? 'Leia mais' : 'Leia menos',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ),
-              ],
+        children: <Widget>[
+          _productDescriptionText(context),
+          ClickableText(
+            8.0,
+            8.0,
+                () {
+              setState(() {
+                read = !read;
+              });
+            },
+            Text(
+              read ? 'Leia mais' : 'Leia menos',
+              style: Theme.of(context).textTheme.bodyText2,
             ),
+          ),
+        ],
+      ),
     );
   }
 
