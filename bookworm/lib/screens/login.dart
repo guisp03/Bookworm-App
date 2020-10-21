@@ -5,6 +5,7 @@ import 'package:teste/components/outsideButton.dart';
 import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/main.dart';
 import 'package:teste/screens/forgotMyPassword.dart';
+import 'package:teste/http/connection.dart';
 import 'package:teste/screens/productsList.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -73,9 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           OutsideButton(
             () {
-             //Login().login();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductListScreen()));
+             Login().login();
+              //Navigator.push(context,
+                //  MaterialPageRoute(builder: (context) => ProductListScreen()));
             },
             'Entrar',
             80.0,

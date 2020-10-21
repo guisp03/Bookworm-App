@@ -10,6 +10,7 @@ import 'package:teste/screens/myAccount.dart';
 import 'package:teste/screens/productsList.dart';
 import 'package:teste/screens/sac.dart';
 import 'package:teste/screens/supportUs.dart';
+import 'package:teste/models/evento.dart';
 
 import 'clickableText.dart';
 
