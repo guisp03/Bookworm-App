@@ -46,4 +46,33 @@ class Produto {
     final Response response = await client.put(baseUrl, body: produto);
     return Produto.fromJson(jsonDecode(response.body));
   }
+
+  Future<List<Produto>> getProdutos() async{
+    final Response response = await client.get("http://192.168.0.6:45457/produtos");
+    final List<dynamic> decodedJson = jsonDecode(response.body);
+    return decodedJson
+        .map((dynamic json) => Produto.fromJson(json))
+        .toList();
+  }
+
+}
+
+class ProdutoWeb {
+  Future<Produto> getProduto() async{
+    final Response response = await client.get(baseUrl);
+    return Produto.fromJson(jsonDecode(response.body));
+  }
+
+  Future<Produto> putProduto(Produto produto) async{
+    final Response response = await client.put(baseUrl, body: produto);
+    return Produto.fromJson(jsonDecode(response.body));
+  }
+
+  Future<List<Produto>> getProdutos() async{
+    final Response response = await client.get("http://192.168.0.6:45457/produtos");
+    final List<dynamic> decodedJson = jsonDecode(response.body);
+    return decodedJson
+        .map((dynamic json) => Produto.fromJson(json))
+        .toList();
+  }
 }
