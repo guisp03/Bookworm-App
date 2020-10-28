@@ -6,6 +6,7 @@ import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/main.dart';
 import 'package:teste/screens/forgotMyPassword.dart';
 import 'package:teste/http/connection.dart';
+import 'package:teste/models/produto.dart';
 import 'package:teste/screens/productsList.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,37 +27,37 @@ class _LoginScreenState extends State<LoginScreen> {
       Column(
         children: <Widget>[
           CustomTextField(
-            TextStyle(
-              fontSize: 30.0,
-              height: 1,
-            ),
-            false,
-            Color.fromRGBO(25, 50, 60, 0.85),
-            'Email',
-            TextStyle(
-              color: Color.fromRGBO(252, 252, 252, 1),
-            ),
-            null,
-            _emailController
+              TextStyle(
+                fontSize: 30.0,
+                height: 1,
+              ),
+              false,
+              Color.fromRGBO(25, 50, 60, 0.85),
+              'Email',
+              TextStyle(
+                color: Color.fromRGBO(252, 252, 252, 1),
+              ),
+              null,
+              _emailController
           ),
           CustomTextField(
-            TextStyle(
-              fontSize: 30.0,
-              height: 1,
-            ),
-            true,
-            Color.fromRGBO(25, 50, 60, 0.85),
-            'Senha',
-            TextStyle(
-              color: Color.fromRGBO(252, 252, 252, 1),
-            ),
-            null,
-            _senhaController
+              TextStyle(
+                fontSize: 30.0,
+                height: 1,
+              ),
+              true,
+              Color.fromRGBO(25, 50, 60, 0.85),
+              'Senha',
+              TextStyle(
+                color: Color.fromRGBO(252, 252, 252, 1),
+              ),
+              null,
+              _senhaController
           ),
           ClickableText(
             0.0,
             0.0,
-            () {
+                () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -73,13 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           OutsideButton(
-            () {
-             Login().login();
+                () { ProdutoWeb produto = new ProdutoWeb();
+                List<Produto> oi = produto.getProdutos();
               //Navigator.push(context,
-                //  MaterialPageRoute(builder: (context) => ProductListScreen()));
+              //  MaterialPageRoute(builder: (context) => ProductListScreen()));
             },
             'Entrar',
             80.0,
+
           ),
         ],
       ),
