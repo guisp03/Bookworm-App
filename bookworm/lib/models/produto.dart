@@ -13,11 +13,10 @@ class Produto {
   final String descricao;
   final ImageProvider imagem;
 
-  Produto(
-      this.idProduto, this.nome, this.autores, this.anoEdicao, this.tipoProduto,
-      this.editora, this.descricao, this.imagem);
+  Produto(this.idProduto, this.nome, this.autores, this.anoEdicao,
+      this.tipoProduto, this.editora, this.descricao, this.imagem);
 
-  Produto.fromJson(Map<String, dynamic> json)
+  /*Produto.fromJson(Map<String, dynamic> json)
       : idProduto = json['idProduto'],
         nome = json['nome'],
         autores = json['autores'],
@@ -28,51 +27,55 @@ class Produto {
         imagem = json['imagem'];
 
   Map<String, dynamic> toJson() => {
-    'idProduto': idProduto,
-    'nome': nome,
-    'autores': autores,
-    'anoEdicao': anoEdicao,
-    'tipoProduto': tipoProduto,
-    'editora': editora,
-    'descricao': descricao,
-    'imagem': imagem,
-  };
-  Future<Produto> getProduto() async{
+        'idProduto': idProduto,
+        'nome': nome,
+        'autores': autores,
+        'anoEdicao': anoEdicao,
+        'tipoProduto': tipoProduto,
+        'editora': editora,
+        'descricao': descricao,
+        'imagem': imagem,
+      };
+
+  Future<Produto> getProduto() async {
     final Response response = await client.get(baseUrl);
     return Produto.fromJson(jsonDecode(response.body));
   }
 
-  Future<Produto> putProduto(Produto produto) async{
+  Future<Produto> putProduto(Produto produto) async {
     final Response response = await client.put(baseUrl, body: produto);
     return Produto.fromJson(jsonDecode(response.body));
   }
 
-  Future<List<Produto>> getProdutos() async{
-    final Response response = await client.get("http://192.168.0.6:45457/produtos");
+  Future<List<Produto>> getProdutos() async {
+    final Response response =
+        await client.get("https://192.168.0.9:45456/produtos");
     final List<dynamic> decodedJson = jsonDecode(response.body);
-    return decodedJson
-        .map((dynamic json) => Produto.fromJson(json))
-        .toList();
-  }
-
+    return decodedJson.map((dynamic json) => Produto.fromJson(json)).toList();
+  }*/
 }
 
 class ProdutoWeb {
-  Future<Produto> getProduto() async{
-    final Response response = await client.get(baseUrl);
-    return Produto.fromJson(jsonDecode(response.body));
-  }
+  final int totalCount;
+  final int count;
+  final List<dynamic> produtos;
 
-  Future<Produto> putProduto(Produto produto) async{
-    final Response response = await client.put(baseUrl, body: produto);
-    return Produto.fromJson(jsonDecode(response.body));
-  }
+  ProdutoWeb(
+    this.totalCount,
+    this.count,
+    this.produtos,
+  );
 
-  Future<List<Produto>> getProdutos() async{
-    final Response response = await client.get("http://192.168.0.6:45457/produtos");
-    final List<dynamic> decodedJson = jsonDecode(response.body);
-    return decodedJson
-        .map((dynamic json) => Produto.fromJson(json))
-        .toList();
+  ProdutoWeb.fromJson(Map<String, dynamic> json)
+      : totalCount = json['total_count'],
+        count = json['count'],
+        produtos = json['produtos'];
+}
+
+class ProdutoClienteWeb {
+  Future<ProdutoWeb> getProdutoWeb() async {
+    final Response response =
+        await client.get("http://192.168.0.9:45455/produtos");
+    return ProdutoWeb.fromJson(jsonDecode(response.body));
   }
 }

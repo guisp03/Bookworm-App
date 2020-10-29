@@ -1,6 +1,4 @@
 import 'package:http_interceptor/http_interceptor.dart';
-import 'dart:convert';
-import 'package:http/http.dart';
 
 class LoggingInterceptor implements InterceptorContract {
   @override
@@ -28,19 +26,4 @@ final HttpClientWithInterceptor client = HttpClientWithInterceptor.build(
   requestTimeout: Duration(seconds: 5),
 );
 
-
-const String baseUrl = 'https://192.168.0.16:45455/login';
-
-class Login {
-  String oi = jsonEncode(<String, String>{'email':"@email", 'senha':"123"});
-    Future<int> login() async {
-      Response response = await client.post(baseUrl, headers: {"content-type":"text/json"}, body: oi);
-      if (response.statusCode == 200) {
-        return json.decode(response.body);
-      }
-      else{
-        print("falhou");
-        return 0;
-      }
-    }
-}
+const String baseUrl = 'http://192.168.0.9:45455/';

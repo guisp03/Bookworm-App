@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:teste/screens/login.dart';
 import 'package:teste/screens/start.dart';
 
-
 void main() => runApp(BookwormApp());
 
 class BookwormApp extends StatelessWidget {

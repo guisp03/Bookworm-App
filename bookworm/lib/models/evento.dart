@@ -7,17 +7,18 @@ class Evento {
   final String titulo;
   final String descricao;
   final String responsavel;
-  //final String email;
+  final String email;
 
-  Evento(this.idEvento, this.titulo, this.descricao, this.responsavel
-      //this.email,
+  Evento(this.idEvento, this.titulo, this.descricao, this.responsavel, this.email,
+
       );
 
   Evento.fromJson(Map<String, dynamic> json)
       : idEvento = json['idEvento'],
         titulo = json['titulo'],
         descricao = json['descricao'],
-        responsavel = json['responsavel'];
+        responsavel = json['responsavel'],
+        email = json['email'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -25,6 +26,7 @@ class Evento {
         'titulo' : titulo,
         'descricao' : descricao,
         'responsavel' : responsavel,
+        'email' : email,
       };
 
   Future<Evento> getEvento() async{
@@ -37,6 +39,10 @@ class Evento {
     return Evento.fromJson(jsonDecode(response.body));
   }
 
+  
+}
+
+class EventoWeb {
   Future<List<Evento>> getEventos() async{
     final Response response = await client.get(baseUrl);
     final List<dynamic> decodedJson = jsonDecode(response.body);
