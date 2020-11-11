@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:teste/http/connection.dart';
 import 'dart:convert';
@@ -85,9 +87,8 @@ class LoginWeb {
         body: jsonEncode(<String, String>{"email": email, "senha": senha}));
     if (response.statusCode == 200) {
       return Login.fromJson(json.decode(response.body));
-    }
-    else {
-      throw Exception('Falha ao realizar login!'); 
+    } else {
+      throw Exception('Falha ao realizar login!');
     }
   }
 }

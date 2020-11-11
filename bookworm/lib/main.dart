@@ -54,8 +54,8 @@ class BookwormApp extends StatelessWidget {
       ),
       title: 'Bookworm',
       home: StartScreen(),
-      routes: <String, WidgetBuilder>{
-        '/LoginScreen': (BuildContext context) => LoginScreen()
+      routes: <String, WidgetBuilder> {
+        '/LoginScreen': (BuildContext context) => LoginScreen(),
       },
     );
   }

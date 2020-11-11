@@ -22,7 +22,7 @@ class LoggingInterceptor implements InterceptorContract {
 
 final HttpClientWithInterceptor client = HttpClientWithInterceptor.build(
   interceptors: [LoggingInterceptor()],
-  badCertificateCallback: ((X509Certificate, String host, int port) => true),
+  badCertificateCallback: ((x509Certificate, String host, int port) => true),
   requestTimeout: Duration(seconds: 5),
 );
 

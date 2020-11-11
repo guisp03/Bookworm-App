@@ -7,7 +7,7 @@ import 'package:teste/components/pageModelOutside.dart';
 import 'package:teste/main.dart';
 import 'package:teste/models/leitor.dart';
 import 'package:teste/screens/forgotMyPassword.dart';
-import 'package:teste/screens/productsList.dart';
+import 'package:teste/screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   LoginWeb login = new LoginWeb();
-  Login l = new Login(1, '1');
+  Login logar;
 
   @override
   Widget build(BuildContext context) {
@@ -75,21 +75,33 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             OutsideButton(
               () async {
-                if (_emailController.text.isEmpty ||
-                    _senhaController.text.isEmpty) {
+                if (_emailController.text.isNotEmpty &&
+                    _senhaController.text.isNotEmpty) {
+                  logar = await login
+                      .logar(_emailController.text, _senhaController.text)
+                      .catchError((e) => showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => CustomAlertDialog(Text(
+                              'Erro ao realizar login! Tente novamente!'))));
+                  if (logar.code == 200) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (Route<dynamic> route) => false);
+                  } else {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) =>
+                            CustomAlertDialog(Text('Senha incorreta!')));
+                  }
+                } else {
                   showDialog(
                       context: context,
                       barrierDismissible: false,
                       builder: (_) =>
-                          CustomAlertDialog(Text("Login ou senha inválidos")));
-                } else {
-                  Login logar = await login.logar(_emailController.text, _senhaController.text);
-                  logar.code == 200 ? MaterialPageRoute(builder: (context) => ProductListScreen()) : showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (_) =>
-                          CustomAlertDialog(Text("Ocorreu algum erro")));
-                } 
+                          CustomAlertDialog(Text('Algum campo está vazio!')));
+                }
               },
               'Entrar',
               80.0,

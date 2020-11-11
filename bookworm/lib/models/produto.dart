@@ -1,64 +1,63 @@
-import 'package:flutter/material.dart';
 import 'package:teste/http/connection.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 
 class Produto {
   final int idProduto;
+  final String isbn;
   final String nome;
   final String autores;
   final String anoEdicao;
   final String tipoProduto;
+  final int tipoAcervo;
   final String editora;
   final String descricao;
-  final ImageProvider imagem;
+  final String imagem;
+  final List<String> generos;
+  final List<dynamic> reservas;
+  final int setor;
+  final int prateleira;
+  final int fileira;
 
-  Produto(this.idProduto, this.nome, this.autores, this.anoEdicao,
-      this.tipoProduto, this.editora, this.descricao, this.imagem);
+  Produto(
+      this.idProduto,
+      this.isbn,
+      this.nome,
+      this.autores,
+      this.anoEdicao,
+      this.tipoProduto,
+      this.tipoAcervo,
+      this.editora,
+      this.descricao,
+      this.imagem,
+      this.generos,
+      this.reservas,
+      this.setor,
+      this.prateleira,
+      this.fileira);
 
-  /*Produto.fromJson(Map<String, dynamic> json)
-      : idProduto = json['idProduto'],
-        nome = json['nome'],
-        autores = json['autores'],
-        anoEdicao = json['anoEdicao'],
-        tipoProduto = json['tipoProduto'],
-        editora = json['editora'],
-        descricao = json['descricao'],
-        imagem = json['imagem'];
-
-  Map<String, dynamic> toJson() => {
-        'idProduto': idProduto,
-        'nome': nome,
-        'autores': autores,
-        'anoEdicao': anoEdicao,
-        'tipoProduto': tipoProduto,
-        'editora': editora,
-        'descricao': descricao,
-        'imagem': imagem,
-      };
-
-  Future<Produto> getProduto() async {
-    final Response response = await client.get(baseUrl);
-    return Produto.fromJson(jsonDecode(response.body));
-  }
-
-  Future<Produto> putProduto(Produto produto) async {
-    final Response response = await client.put(baseUrl, body: produto);
-    return Produto.fromJson(jsonDecode(response.body));
-  }
-
-  Future<List<Produto>> getProdutos() async {
-    final Response response =
-        await client.get("https://192.168.0.9:45456/produtos");
-    final List<dynamic> decodedJson = jsonDecode(response.body);
-    return decodedJson.map((dynamic json) => Produto.fromJson(json)).toList();
-  }*/
+  Produto.fromJson(Map<String, dynamic> json)
+      : idProduto = json['IDProduto'],
+        isbn = json['ISBN'],
+        nome = json['NomeLivro'],
+        autores = json['AutoresLivro'],
+        anoEdicao = json['AnoEdicao'],
+        tipoProduto = json['TipoProduto'],
+        tipoAcervo = json['TipoAcervo'],
+        editora = json['Editora'],
+        descricao = json['DescricaoProd'],
+        imagem = json['ImagemProd'],
+        generos = json['Generos'].cast<String>(),
+        reservas = json['Reservas'],
+        setor = json['Setor'],
+        prateleira = json['Prateleira'],
+        fileira = json['Fileira'];
 }
 
 class ProdutoWeb {
   final int totalCount;
   final int count;
-  final List<dynamic> produtos;
+  final List<Produto> produtos;
 
   ProdutoWeb(
     this.totalCount,
@@ -69,13 +68,14 @@ class ProdutoWeb {
   ProdutoWeb.fromJson(Map<String, dynamic> json)
       : totalCount = json['total_count'],
         count = json['count'],
-        produtos = json['produtos'];
+        produtos =
+            (json['produtos'] as List).map((e) => Produto.fromJson(e)).toList();
 }
 
 class ProdutoClienteWeb {
   Future<ProdutoWeb> getProdutoWeb() async {
     final Response response =
-        await client.get("http://192.168.0.9:45455/produtos");
+        await client.get("http://192.168.0.9:45455/produtos?page=1&count=20");
     return ProdutoWeb.fromJson(jsonDecode(response.body));
   }
 }
