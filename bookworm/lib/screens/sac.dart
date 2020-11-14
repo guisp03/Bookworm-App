@@ -28,14 +28,13 @@ class SacScreen extends StatelessWidget {
               ),
             ),
             CustomTextField(
-              Theme.of(context).textTheme.subtitle1,
-              false,
-              Color.fromRGBO(170, 187, 2014, 0.9),
-              'Email',
-              Theme.of(context).textTheme.subtitle1,
-              null,
-              null
-            ),
+                Theme.of(context).textTheme.subtitle1,
+                false,
+                Color.fromRGBO(170, 187, 2014, 0.9),
+                'Email',
+                Theme.of(context).textTheme.subtitle1,
+                null,
+                null),
             Container(
               height: 300.0,
               child: Padding(
@@ -67,12 +66,10 @@ class SacScreen extends StatelessWidget {
               16.0,
               () {
                 showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (_) => CustomAlertDialog(
-                    Text("Pronto! Seu recado foi enviado. \n\nA gente promete te responder o mais rápido possível ;)")
-                  )
-                );
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => CustomAlertDialog(Text(
+                        "Pronto! Seu recado foi enviado. \n\nA gente promete te responder o mais rápido possível ;)")));
               },
               TextWithIcon(
                 AssetImage("assets/images/enviar.png"),

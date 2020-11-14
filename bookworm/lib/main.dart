@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:teste/screens/login.dart';
+import 'package:teste/screens/productsList.dart';
 import 'package:teste/screens/start.dart';
 
 void main() => runApp(BookwormApp());
@@ -55,7 +56,7 @@ class BookwormApp extends StatelessWidget {
       title: 'Bookworm',
       home: StartScreen(),
       routes: <String, WidgetBuilder> {
-        '/LoginScreen': (BuildContext context) => LoginScreen(),
+        '/LoginScreen': (BuildContext context) => ProductListScreen(),
       },
     );
   }

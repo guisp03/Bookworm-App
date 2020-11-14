@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/customTextField.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/produto.dart';
+import 'package:teste/screens/product.dart';
 
 class ProductListScreen extends StatefulWidget {
   @override
@@ -12,9 +14,18 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   final TextEditingController _produtoController = TextEditingController();
   ProdutoClienteWeb produtoClienteWeb = new ProdutoClienteWeb();
+  ProdutoWeb produtoWeb;
+  Future<ProdutoWeb> future;
   List<Produto> produtos = [];
   List<String> generos = [];
-  Map<String, List<Produto>> produtosPorGenero = {};
+  int page = 1;
+  int count = 0;
+
+  @override
+  void initState() {
+    future = produtoClienteWeb.getProdutoWeb(page);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +52,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   context: context,
                   removeTop: true,
                   child: FutureBuilder<ProdutoWeb>(
-                    future: produtoClienteWeb.getProdutoWeb(),
+                    future: future,
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
@@ -53,69 +64,117 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           break;
                         case ConnectionState.done:
                           if (snapshot.hasData) {
-                            final ProdutoWeb produtoWeb = snapshot.data;
-                            produtos = produtoWeb.produtos;
+                            produtoWeb = snapshot.data;
+                            count = count + produtoWeb.count;
+                            produtoWeb.produtos.forEach((element) => produtos.add(element));
                             produtos.forEach((element) => element.generos
                                 .forEach((item) => generos.add(item)));
                             generos = generos.toSet().toList();
-                            generos.forEach((element) =>
-                                produtosPorGenero[element] =
-                                    separarProdutos(element));
-                            print(produtosPorGenero);
                             if (produtos.isNotEmpty) {
-                              return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                physics: ScrollPhysics(),
-                                itemCount: generos.length,
-                                itemBuilder: (context, i) {
-                                  List<Produto> listaProdutosPorGenero =
-                                      separarProdutos(generos[i]);
-                                  return Column(
-                                    children: <Widget>[
-                                      Text(
-                                        generos[i],
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          top: 14,
-                                          bottom: 14,
-                                          right: 38,
-                                          left: 38,
-                                        ),
-                                        child: SizedBox(
-                                          height: 200,
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                listaProdutosPorGenero.length,
-                                            itemBuilder: (context, j) {
-                                              return GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  child: Text(
-                                                      listaProdutosPorGenero[j]
-                                                          .nome),
+                              return SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
+                                      itemCount: generos.length,
+                                      itemBuilder: (context, i) {
+                                        List<Produto> listaprodutosDoGenero =
+                                            separarProdutos(generos[i]);
+                                        return Column(
+                                          children: <Widget>[
+                                            Text(
+                                              generos[i],
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: 14,
+                                                bottom: 14,
+                                                right: 38,
+                                                left: 38,
+                                              ),
+                                              child: SizedBox(
+                                                height: 200,
+                                                child: ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount:
+                                                      listaprodutosDoGenero
+                                                          .length,
+                                                  itemBuilder: (context, j) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => ProductScreen(
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .nome,
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .imagem,
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .editora,
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .anoEdicao,
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .tipoProduto,
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .autores,
+                                                                    generos[i],
+                                                                    listaprodutosDoGenero[
+                                                                            j]
+                                                                        .descricao)));
+                                                      },
+                                                      child: Container(
+                                                        child: Image(
+                                                          image:
+                                                              listaprodutosDoGenero[
+                                                                      j]
+                                                                  .imagem,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                        width: 130,
+                                                        margin: EdgeInsets.only(
+                                                            right: 46),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                },
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    produtoWeb.totalCount > count
+                                        ? ClickableText(16, 16, () {
+                                            setState(() {
+                                              page++;
+                                              future = produtoClienteWeb
+                                                  .getProdutoWeb(page);
+                                            });
+                                          }, Text('Carregar mais'))
+                                        : Text(''),
+                                  ],
+                                ),
                               );
                             }
                           }
-                          return Container(width: 0, height: 0);
+                          return Text('Falha ao buscar produtos!\n Tente novamente!');
                           break;
                       }
-                      return Container(height: 0, width: 0);
+                      return Text('Falha ao buscar produtos!\n Tente novamente!');
                     },
                   ))
             ],

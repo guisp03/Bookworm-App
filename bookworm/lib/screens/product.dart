@@ -10,21 +10,21 @@ class ProductScreen extends StatefulWidget {
   final ImageProvider imagem;
   final String editora;
   final String anoEdicao;
-  final String exemplares;
+  final String tipoproduto;
   final String autores;
   final String nomeGenero;
   final String descricao;
 
   const ProductScreen(
-      this.nomeProduto,
-      this.imagem,
-      this.editora,
-      this.anoEdicao,
-      this.exemplares,
-      this.autores,
-      this.nomeGenero,
-      this.descricao,
-      );
+    this.nomeProduto,
+    this.imagem,
+    this.editora,
+    this.anoEdicao,
+    this.tipoproduto,
+    this.autores,
+    this.nomeGenero,
+    this.descricao,
+  );
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
@@ -52,38 +52,38 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(top: 16),
-                          height: 240.0,
-                          width: 156.0,
-                          child: Image(
-                            image: widget.imagem,
-                            fit: BoxFit.cover,
+                    Container(
+                      width: (MediaQuery.of(context).size.width * 0.5) - 16,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(top: 16),
+                            height: 240.0,
+                            width: 156.0,
+                            child: Image(
+                              image: widget.imagem,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        //_productInformation(context, 'CÓD: XYZABC'),
-                        _productInformation(
-                            context, 'Editora: ' + widget.editora),
-                        _productInformation(
-                            context, 'Ano edição: ' + widget.anoEdicao),
-                        _productInformation(context,
-                            'Exemplares \ndisponíneis: ' + widget.exemplares),
-                        ClickableText(
-                          16.0,
-                          0.0,
-                              () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (_) => CustomAlertDialog(
-                                Column(
-                                  children: <Widget>[
-                                    ClickableText(
-                                      0.0,
-                                      0.0,
-                                          () {
+                          //_productInformation(context, 'CÓD: XYZABC'),
+                          _productInformation(
+                              context, 'Editora: ' + widget.editora),
+                          _productInformation(
+                              context, 'Ano edição: ' + widget.anoEdicao),
+                          //_productInformation(context,
+                          // 'Exemplares \ndisponíneis: ' + widget.exemplares),
+                          ClickableText(
+                            16.0,
+                            0.0,
+                            () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => CustomAlertDialog(
+                                  Column(
+                                    children: <Widget>[
+                                      ClickableText(0.0, 0.0, () {
                                         showDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -95,7 +95,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 ClickableText(
                                                   0.0,
                                                   0.0,
-                                                      () {},
+                                                  () {},
                                                   TextWithIcon(
                                                     AssetImage(
                                                         "assets/images/reservar.png"),
@@ -109,52 +109,57 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 ),
                                               ],
                                             ),
+                                            'Reserva',
                                           ),
                                         );
-                                      },
-                                     CustomCalendar()
-                                    ),
-                                  ],
+                                      }, CustomCalendar()),
+                                    ],
+                                  ),
+                                  'Calendário',
                                 ),
+                              );
+                            },
+                            TextWithIcon(
+                              AssetImage("assets/images/reservar.png"),
+                              Text(
+                                'Reservar',
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
-                            );
-                          },
-                          TextWithIcon(
-                            AssetImage("assets/images/reservar.png"),
-                            Text(
-                              'Reservar',
-                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ),
-                        ),
-                        ClickableText(
-                          16.0,
-                          8.0,
-                              () {
-                            setState(() {
-                              fav == AssetImage("assets/images/fav.png")
-                                  ? fav = AssetImage("assets/images/favp.png")
-                                  : fav = AssetImage("assets/images/fav.png");
-                            });
-                          },
-                          TextWithIcon(
-                            fav,
-                            Text(
-                              'Favoritos',
-                              style: Theme.of(context).textTheme.bodyText1,
+                          ClickableText(
+                            16.0,
+                            8.0,
+                            () {
+                              setState(() {
+                                fav == AssetImage("assets/images/fav.png")
+                                    ? fav = AssetImage("assets/images/favp.png")
+                                    : fav = AssetImage("assets/images/fav.png");
+                              });
+                            },
+                            TextWithIcon(
+                              fav,
+                              Text(
+                                'Favoritos',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: <Widget>[
-                        _productInformation(
-                            context, 'Autores: ' + widget.autores),
-                        _productInformation(
-                            context, 'Gênero: ' + widget.nomeGenero),
-                        _ExpandedText(widget.descricao)
-                      ],
+                    Container(
+                      width: (MediaQuery.of(context).size.width * 0.5) - 16,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _productInformation(
+                              context, 'Autores: ' + widget.autores),
+                          _productInformation(
+                              context, 'Gênero: ' + widget.nomeGenero),
+                          _ExpandedText(widget.descricao)
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -214,23 +219,23 @@ class __ExpandedTextState extends State<_ExpandedText> {
       child: description2.isEmpty
           ? _productDescriptionText(context)
           : Column(
-        children: <Widget>[
-          _productDescriptionText(context),
-          ClickableText(
-            8.0,
-            8.0,
-                () {
-              setState(() {
-                read = !read;
-              });
-            },
-            Text(
-              read ? 'Leia mais' : 'Leia menos',
-              style: Theme.of(context).textTheme.bodyText2,
+              children: <Widget>[
+                _productDescriptionText(context),
+                ClickableText(
+                  8.0,
+                  8.0,
+                  () {
+                    setState(() {
+                      read = !read;
+                    });
+                  },
+                  Text(
+                    read ? 'Leia mais' : 'Leia menos',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 

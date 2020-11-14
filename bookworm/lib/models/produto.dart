@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:teste/http/connection.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
@@ -12,7 +13,7 @@ class Produto {
   final int tipoAcervo;
   final String editora;
   final String descricao;
-  final String imagem;
+  final ImageProvider imagem;
   final List<String> generos;
   final List<dynamic> reservas;
   final int setor;
@@ -46,7 +47,7 @@ class Produto {
         tipoAcervo = json['TipoAcervo'],
         editora = json['Editora'],
         descricao = json['DescricaoProd'],
-        imagem = json['ImagemProd'],
+        imagem = MemoryImage(base64.decode(json['ImagemProd'])),
         generos = json['Generos'].cast<String>(),
         reservas = json['Reservas'],
         setor = json['Setor'],
@@ -73,9 +74,13 @@ class ProdutoWeb {
 }
 
 class ProdutoClienteWeb {
-  Future<ProdutoWeb> getProdutoWeb() async {
-    final Response response =
-        await client.get("http://192.168.0.9:45455/produtos?page=1&count=20");
-    return ProdutoWeb.fromJson(jsonDecode(response.body));
+  Future<ProdutoWeb> getProdutoWeb(int page) async {
+    final Response response = await client.get(
+        "http://192.168.0.9:45455/produtos?page=$page&count=20");
+    if (response.statusCode == 200) {
+      return ProdutoWeb.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Falha ao buscar produtos!');
+    }
   }
 }

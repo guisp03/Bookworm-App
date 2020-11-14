@@ -140,6 +140,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
+                 'Saída'
                 ),
               );
             },
