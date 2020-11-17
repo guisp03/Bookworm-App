@@ -6,8 +6,9 @@ class CustomTextField extends StatelessWidget {
   final Color color;
   final String hintText;
   final TextStyle hintStyle;
-  final IconData icon;
+  final ImageProvider icon;
   final TextEditingController controller;
+  final Function onChanged;
 
   const CustomTextField(
     this.style,
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.hintStyle,
     this.icon,
     this.controller,
+    this.onChanged,
   );
 
   @override
@@ -41,13 +43,11 @@ class CustomTextField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: hintStyle,
-          suffixIcon: Icon(
-            icon,
-            color: Color.fromRGBO(25, 50, 60, 1),
-            size: 36.0
-          ),
+          suffixIcon:
+              ImageIcon(icon, color: Color.fromRGBO(25, 50, 60, 1), size: 36.0),
         ),
         controller: controller,
+        onChanged: onChanged,
       ),
     );
   }

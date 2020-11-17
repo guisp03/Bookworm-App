@@ -34,7 +34,9 @@ class SacScreen extends StatelessWidget {
                 'Email',
                 Theme.of(context).textTheme.subtitle1,
                 null,
-                null),
+                null,
+                null
+                ),
             Container(
               height: 300.0,
               child: Padding(

@@ -40,7 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Color.fromRGBO(252, 252, 252, 1),
                 ),
                 null,
-                _emailController),
+                _emailController,
+                null
+                ),
             CustomTextField(
                 TextStyle(
                   fontSize: 30.0,
@@ -53,7 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Color.fromRGBO(252, 252, 252, 1),
                 ),
                 null,
-                _senhaController),
+                _senhaController,
+                null
+                ),
             ClickableText(
               0.0,
               0.0,

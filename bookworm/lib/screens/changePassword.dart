@@ -21,28 +21,30 @@ class ChangePasswordScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 48.0),
             child: CustomTextField(
+                TextStyle(fontSize: 30.0, height: 1),
+                true,
+                Color.fromRGBO(25, 50, 60, 0.85),
+                'Nova Senha',
+                TextStyle(
+                  color: Color.fromRGBO(252, 252, 252, 1),
+                ),
+                null,
+                _senhaController,
+                null
+                ),
+          ),
+          CustomTextField(
               TextStyle(fontSize: 30.0, height: 1),
               true,
               Color.fromRGBO(25, 50, 60, 0.85),
-              'Nova Senha',
+              'Confirmar Senha',
               TextStyle(
                 color: Color.fromRGBO(252, 252, 252, 1),
               ),
               null,
-              _senhaController
-            ),
-          ),
-          CustomTextField(
-            TextStyle(fontSize: 30.0, height: 1),
-            true,
-            Color.fromRGBO(25, 50, 60, 0.85),
-            'Confirmar Senha',
-            TextStyle(
-              color: Color.fromRGBO(252, 252, 252, 1),
-            ),
-            null,
-            _confirmarController
-          ),
+              _confirmarController,
+              null
+              ),
           OutsideButton(
             () {
               Navigator.push(context,

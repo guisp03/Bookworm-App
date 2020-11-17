@@ -22,19 +22,20 @@ class SendCodeScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 40.0),
             child: CustomTextField(
-              TextStyle(
-                fontSize: 30.0,
-                height: 1,
-              ),
-              false,
-              Color.fromRGBO(25, 50, 60, 0.85),
-              'Código',
-              TextStyle(
-                color: Color.fromRGBO(252, 252, 252, 1),
-              ),
-              null,
-              _codigoContoller
-            ),
+                TextStyle(
+                  fontSize: 30.0,
+                  height: 1,
+                ),
+                false,
+                Color.fromRGBO(25, 50, 60, 0.85),
+                'Código',
+                TextStyle(
+                  color: Color.fromRGBO(252, 252, 252, 1),
+                ),
+                null,
+                _codigoContoller,
+                null
+                ),
           ),
           ClickableText(
             0.0,

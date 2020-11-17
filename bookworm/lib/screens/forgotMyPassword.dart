@@ -30,19 +30,20 @@ class ForgotMyPasswordScreen extends StatelessWidget {
             ),
           ),
           CustomTextField(
-            TextStyle(
-              fontSize: 30.0,
-              height: 1,
-            ),
-            false,
-            Color.fromRGBO(25, 50, 60, 0.85),
-            'Email',
-            TextStyle(
-              color: Color.fromRGBO(252, 252, 252, 1),
-            ),
-            null,
-            _emailController
-          ),
+              TextStyle(
+                fontSize: 30.0,
+                height: 1,
+              ),
+              false,
+              Color.fromRGBO(25, 50, 60, 0.85),
+              'Email',
+              TextStyle(
+                color: Color.fromRGBO(252, 252, 252, 1),
+              ),
+              null,
+              _emailController,
+              null
+              ),
           OutsideButton(
             () {
               Navigator.push(context,

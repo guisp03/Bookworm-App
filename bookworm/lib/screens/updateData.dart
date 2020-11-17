@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
-import 'package:teste/screens/updateData.dart';
+import 'package:teste/screens/myAccount.dart';
 
-class MyAccountScreen extends StatelessWidget {
-  
+class UpdateDataScreen extends StatelessWidget {
   Padding _userInformation(BuildContext context, String information) {
     return Padding(
       padding: EdgeInsets.only(top: 16.0),
@@ -36,20 +35,33 @@ class MyAccountScreen extends StatelessWidget {
                 ),
                 Container(
                   width: (MediaQuery.of(context).size.width * 0.5) - 16,
-                  child: Text("Guilherme Sousa Panza",
-                      style: Theme.of(context).textTheme.subtitle2,
-                      textAlign: TextAlign.center),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Nome: ',
+                        style: Theme.of(context).textTheme.subtitle2,
+                        textAlign: TextAlign.center,
+                      ),
+                      TextField(),
+                    ],
+                  ),
                 ),
               ],
             ),
-            _userInformation(context, "CPF: XXXXX"),
-            _userInformation(context, "RG: XXXXX"),
-            _userInformation(context, "Data de Nascimento: DD/MM/AA"),
-            _userInformation(
-                context, "Endereço: Rua Tal, e blah blahllllllllllll blah"),
-            _userInformation(context, "Telefone: Varios npumeors ae"),
-            _userInformation(context, "Email: Email@email.com.br"),
-            _userInformation(context, "Senha: ********"),
+            _userInformation(context, "CPF: "),
+            TextField(),
+            _userInformation(context, "RG: "),
+            TextField(),
+            _userInformation(context, "Data de Nascimento: "),
+            TextField(),
+            _userInformation(context, "Endereço: "),
+            TextField(),
+            _userInformation(context, "Telefone: "),
+            TextField(),
+            _userInformation(context, "Email: "),
+            TextField(),
+            _userInformation(context, "Senha: "),
+            TextField(),
             ClickableText(
               16.0,
               8.0,
@@ -57,12 +69,12 @@ class MyAccountScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UpdateDataScreen()));
+                        builder: (context) => MyAccountScreen()));
               },
               TextWithIcon(
                 AssetImage("assets/images/reservar.png"),
                 Text(
-                  'Editar Dados',
+                  'Confirmar Dados',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
