@@ -8,8 +8,6 @@ import 'package:teste/screens/home.dart';
 import 'package:teste/screens/login.dart';
 import 'package:teste/screens/myAccount.dart';
 import 'package:teste/screens/productsList.dart';
-import 'package:teste/screens/sac.dart';
-import 'package:teste/screens/supportUs.dart';
 
 import 'clickableText.dart';
 
@@ -79,26 +77,10 @@ class CustomDrawer extends StatelessWidget {
           ),
           _drawerItems(
             context,
-            'Apoie',
-            () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SupportUsScreen()));
-            },
-          ),
-          _drawerItems(
-            context,
             'Sobre',
             () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AboutUsScreen()));
-            },
-          ),
-          _drawerItems(
-            context,
-            'SAC',
-            () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SacScreen()));
             },
           ),
           _drawerItems(
@@ -109,39 +91,38 @@ class CustomDrawer extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (_) => CustomAlertDialog(
-                  Column(
-                    children: <Widget>[
-                      Text(
-                        "Poxa, já está de saída? :( \n\nEstaremos te esperando, por isso, volte logo!",
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ClickableText(
-                            16.0,
-                            0.0,
-                            () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
-                            TextWithIcon(
-                              AssetImage("assets/images/sair.png"),
-                              Text(
-                                "Sair",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          "Poxa, já está de saída? :( \n\nEstaremos te esperando, por isso, volte logo!",
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ClickableText(
+                              16.0,
+                              0.0,
+                              () {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()),
+                                    (route) => false);
+                              },
+                              TextWithIcon(
+                                AssetImage("assets/images/sair.png"),
+                                Text(
+                                  "Sair",
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                 'Saída'
-                ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    'Saída'),
               );
             },
           ),

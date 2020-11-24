@@ -16,7 +16,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = CalendarController();
   }

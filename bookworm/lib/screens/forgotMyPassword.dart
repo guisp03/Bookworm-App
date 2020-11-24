@@ -8,7 +8,7 @@ class ForgotMyPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   
     return PageModelOutside(
       64.0,
       "Esqueci minha\nsenha",
@@ -31,7 +31,7 @@ class ForgotMyPasswordScreen extends StatelessWidget {
           ),
           CustomTextField(
               TextStyle(
-                fontSize: 30.0,
+                fontSize: 30,
                 height: 1,
               ),
               false,

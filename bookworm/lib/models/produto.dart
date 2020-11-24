@@ -76,7 +76,7 @@ class ProdutoWeb {
 class ProdutoClienteWeb {
   Future<ProdutoWeb> getProdutoWeb(int page) async {
     final Response response = await client.get(
-        "http://192.168.0.9:45455/produtos?page=$page&count=20");
+        baseUrl + "produtos?page=$page&count=20");
     if (response.statusCode == 200) {
       return ProdutoWeb.fromJson(jsonDecode(response.body));
     } else {

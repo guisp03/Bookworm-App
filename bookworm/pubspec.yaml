@@ -20,6 +20,8 @@ dependencies:
   intl: ^0.16.1
   flutter:
     sdk: flutter
+  flutter_screenutil: ^3.1.0
+  image_picker: ^0.6.7+14
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -60,7 +62,9 @@ flutter:
     - assets/images/mario.jpg
     - assets/images/favp.png
     - assets/images/enviar.png
-    - assets/images/sem imagem.png
+    - assets/images/ratinhocha.png
+    - assets/images/ratinhoprateleira.png
+    - assets/images/ratinholivro.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

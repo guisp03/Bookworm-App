@@ -66,13 +66,10 @@ class _ProductScreenState extends State<ProductScreen> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          //_productInformation(context, 'CÓD: XYZABC'),
                           _productInformation(
                               context, 'Editora: ' + widget.editora),
                           _productInformation(
                               context, 'Ano edição: ' + widget.anoEdicao),
-                          //_productInformation(context,
-                          // 'Exemplares \ndisponíneis: ' + widget.exemplares),
                           ClickableText(
                             16.0,
                             0.0,
@@ -92,6 +89,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                               children: <Widget>[
                                                 Text(
                                                     "Reservar para o dia tal?"),
+                                                    Image.asset('assets/images/ratinholivro.png'),
                                                 ClickableText(
                                                   0.0,
                                                   0.0,

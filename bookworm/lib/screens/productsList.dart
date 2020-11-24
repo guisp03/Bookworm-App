@@ -51,8 +51,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 case ConnectionState.none:
                   break;
                 case ConnectionState.waiting:
-                  return CircularProgressIndicator();
-                  break; //colocar indicador
+                  return Column(
+                    children: [
+                      Center(
+                        child:
+                            Image.asset('assets/images/ratinhoprateleira.png'),
+                      ),
+                      Text('Buscando produtos', style: Theme.of(context).textTheme.subtitle1,)
+                    ],
+                  );
+                  break;
                 case ConnectionState.active:
                   break;
                 case ConnectionState.done:

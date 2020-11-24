@@ -4,8 +4,34 @@ import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
 import 'package:teste/screens/updateData.dart';
 
-class MyAccountScreen extends StatelessWidget {
-  
+class MyAccountScreen extends StatefulWidget {
+  final String nome;
+  final String cpf;
+  final String rg;
+  final String dataNasc;
+  final String endereco;
+  final String telefone;
+  final String email;
+  final String senha;
+  final dynamic imagem;
+
+  const MyAccountScreen(
+    this.nome,
+    this.cpf,
+    this.rg,
+    this.dataNasc,
+    this.endereco,
+    this.telefone,
+    this.email,
+    this.senha,
+    this.imagem,
+  );
+
+  @override
+  _MyAccountScreenState createState() => _MyAccountScreenState();
+}
+
+class _MyAccountScreenState extends State<MyAccountScreen> {
   Padding _userInformation(BuildContext context, String information) {
     return Padding(
       padding: EdgeInsets.only(top: 16.0),
@@ -31,25 +57,25 @@ class MyAccountScreen extends StatelessWidget {
                   width: (MediaQuery.of(context).size.width * 0.5) - 16,
                   child: CircleAvatar(
                     radius: 64.0,
-                    backgroundImage: AssetImage("assets/images/mario.jpg"),
+                    backgroundImage: widget.imagem,
                   ),
                 ),
                 Container(
                   width: (MediaQuery.of(context).size.width * 0.5) - 16,
-                  child: Text("Guilherme Sousa Panza",
+                  child: Text(widget.nome,
                       style: Theme.of(context).textTheme.subtitle2,
                       textAlign: TextAlign.center),
                 ),
               ],
             ),
-            _userInformation(context, "CPF: XXXXX"),
-            _userInformation(context, "RG: XXXXX"),
-            _userInformation(context, "Data de Nascimento: DD/MM/AA"),
+            _userInformation(context, "CPF: " + widget.cpf),
+            _userInformation(context, "RG: " + widget.rg),
+            _userInformation(context, "Data de Nascimento: " + widget.dataNasc),
             _userInformation(
-                context, "Endereço: Rua Tal, e blah blahllllllllllll blah"),
-            _userInformation(context, "Telefone: Varios npumeors ae"),
-            _userInformation(context, "Email: Email@email.com.br"),
-            _userInformation(context, "Senha: ********"),
+                context, "Endereço: " + widget.endereco),
+            _userInformation(context, "Telefone: " + widget.telefone),
+            _userInformation(context, "Email: " + widget.email),
+            _userInformation(context, "Senha: " + widget.senha),
             ClickableText(
               16.0,
               8.0,

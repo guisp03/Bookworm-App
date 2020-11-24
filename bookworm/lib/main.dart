@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:teste/screens/login.dart';
-import 'package:teste/screens/productsList.dart';
 import 'package:teste/screens/start.dart';
-import 'package:teste/screens/updateData.dart';
 
-void main() => runApp(BookwormApp());
+void main() {
+  runApp(BookwormApp());
+}
 
 class BookwormApp extends StatelessWidget {
   static const Color darkBlue = Color.fromRGBO(25, 50, 60, 1);
@@ -18,7 +17,7 @@ class BookwormApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      supportedLocales: [const Locale('pt','BR')],
+      supportedLocales: [const Locale('pt', 'BR')],
       theme: ThemeData(
         primaryColor: darkBlue,
         canvasColor: darkBlue,
@@ -56,9 +55,6 @@ class BookwormApp extends StatelessWidget {
       ),
       title: 'Bookworm',
       home: StartScreen(),
-      routes: <String, WidgetBuilder> {
-        '/LoginScreen': (BuildContext context) => UpdateDataScreen(),
-      },
     );
   }
 }
