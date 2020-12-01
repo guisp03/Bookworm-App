@@ -68,6 +68,7 @@ flutter:
     - assets/images/ratinhocha.png
     - assets/images/ratinhoprateleira.png
     - assets/images/ratinholivro.png
+    - assets/images/eventos-animacao.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
