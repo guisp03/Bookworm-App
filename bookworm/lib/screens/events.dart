@@ -5,7 +5,6 @@ import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/evento.dart';
 
 class EventsScreen extends StatefulWidget {
-
   final int id;
 
   const EventsScreen(this.id);
@@ -40,14 +39,17 @@ class _EventsScreenState extends State<EventsScreen> {
                       break;
                     case ConnectionState.waiting:
                       return Column(
-                    children: [
-                      Center(
-                        child:
-                            Image.asset('assets/images/ratinhoprateleira.png'),
-                      ),
-                      Text('Buscando eventos', style: Theme.of(context).textTheme.subtitle1,)
-                    ],
-                  );
+                        children: [
+                          Center(
+                            child: Image.asset(
+                                'assets/images/ratinhoprateleira.png'),
+                          ),
+                          Text(
+                            'Buscando eventos',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      );
                       break;
                     case ConnectionState.active:
                       break;
@@ -70,13 +72,47 @@ class _EventsScreenState extends State<EventsScreen> {
                                     itemBuilder: (context, i) {
                                       return Column(
                                         children: <Widget>[
-                                          Divider(color: Color.fromRGBO(255, 255, 255, 1),),
-                                          Text('Título: ' + eventos[i].titulo, style: Theme.of(context).textTheme.subtitle1,),
-                                          Text('Descrição: ' +
-                                              eventos[i].descricao),
-                                          Text('Responsável: ' +
-                                              eventos[i].responsavel),
-                                          Text('Email: ' + eventos[i].email),
+                                          Image.asset(
+                                            'assets/images/eventos-animacao.gif',
+                                            height: 210,
+                                          ),
+                                          Divider(
+                                            color: Color.fromRGBO(
+                                                255, 255, 255, 1),
+                                          ),
+                                          Text(
+                                            eventos[i].titulo + '\n',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                          ),
+                                          Text(
+                                            'Descrição: ' +
+                                                eventos[i].descricao +
+                                                '\n',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                          Text(
+                                            'Responsável: ' +
+                                                eventos[i].responsavel +
+                                                '\n',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                          Text(
+                                            'Email: ' + eventos[i].email,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                          Divider(
+                                            color: Color.fromRGBO(
+                                                255, 255, 255, 1),
+                                          )
                                         ],
                                       );
                                     })),
@@ -95,6 +131,7 @@ class _EventsScreenState extends State<EventsScreen> {
                       return Text('Falha ao buscar eventos');
                   }
                   return Text('Falha desconhecida');
-                })),widget.id);
+                })),
+        widget.id);
   }
 }
