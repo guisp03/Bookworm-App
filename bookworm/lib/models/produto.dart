@@ -106,4 +106,4 @@ class ProdutoClienteWeb {
       throw Exception('Falha ao buscar reservas!');
     }
   }
-}
+
