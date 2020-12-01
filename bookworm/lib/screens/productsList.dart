@@ -5,8 +5,13 @@ import 'package:teste/components/customTextField.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/produto.dart';
 import 'package:teste/screens/product.dart';
+import 'package:teste/util/resize.dart';
 
 class ProductListScreen extends StatefulWidget {
+  final int id;
+
+  const ProductListScreen(this.id);
+
   @override
   _ProductListScreenState createState() => _ProductListScreenState();
 }
@@ -18,8 +23,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
   List<Produto> produtos = [];
   List<String> generos = [];
   int page = 1;
-  int count = 0;
   String search = '';
+  int count = 0;
+  List<String> isbns = [];
+  List<Produto> repetidos = [];
+  Resize resize = new Resize();
 
   @override
   void initState() {
@@ -41,6 +49,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    resize.getWidthAndHeight(context);
+    produtos.clear();
+    generos.clear();
     return PageModelInsideScreen(
         'Acervo',
         SingleChildScrollView(
@@ -57,7 +68,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         child:
                             Image.asset('assets/images/ratinhoprateleira.png'),
                       ),
-                      Text('Buscando produtos', style: Theme.of(context).textTheme.subtitle1,)
+                      Text(
+                        'Buscando produtos',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
                     ],
                   );
                   break;
@@ -67,18 +81,25 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   if (snapshot.hasData) {
                     produtoWeb = snapshot.data;
                     count = count + produtoWeb.count;
-                    produtoWeb.produtos
-                        .forEach((element) => produtos.add(element));
+                    produtoWeb.produtos.forEach((element) =>
+                        element.nome.contains(search)
+                            ? produtos.add(element)
+                            : () {});
                     produtos.forEach((element) =>
                         element.generos.forEach((item) => generos.add(item)));
                     generos = generos.toSet().toList();
+                    produtos.forEach((element) => isbns.contains(element.isbn)
+                        ? repetidos.add(element)
+                        : isbns.add(element.isbn));
+                    repetidos.forEach((element) =>
+                        produtos.removeWhere((item) => item == element));
                     if (produtos.isNotEmpty) {
                       return Column(
                         children: [
                           CustomTextField(
                             TextStyle(
-                              fontSize: 25.0,
-                              height: 0.75,
+                              fontSize: resize.getFontScale(25.0),
+                              height: resize.getHeight(0.75),
                               fontWeight: FontWeight.bold,
                             ),
                             false,
@@ -92,6 +113,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             (value) => setState(() {
                               search = value;
                               produtos.clear();
+                              generos.clear();
                               count = 0;
                             }),
                           ),
@@ -116,67 +138,60 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                        top: 14,
-                                        bottom: 14,
-                                        right: 38,
-                                        left: 38,
+                                        top: resize.getHeight(14),
+                                        bottom: resize.getHeight(14),
+                                        right: resize.getWidth(38),
+                                        left: resize.getWidth(38),
                                       ),
                                       child: SizedBox(
-                                        height: 200,
+                                        height: resize.getHeight(200),
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount:
                                               listaprodutosDoGenero.length,
                                           itemBuilder: (context, j) {
-                                            if (listaprodutosDoGenero[j]
-                                                .nome
-                                                .contains(search)) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => ProductScreen(
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .nome,
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .imagem,
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .editora,
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .anoEdicao,
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .tipoProduto,
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .autores,
-                                                              generos[i],
-                                                              listaprodutosDoGenero[
-                                                                      j]
-                                                                  .descricao)));
-                                                },
-                                                child: Container(
-                                                  child: Image(
-                                                    image:
-                                                        listaprodutosDoGenero[j]
-                                                            .imagem,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                  width: 130,
-                                                  margin: EdgeInsets.only(
-                                                      right: 46),
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => ProductScreen(
+                                                            widget.id,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .nome,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .imagem,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .editora,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .anoEdicao,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .tipoProduto,
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .autores,
+                                                            generos[i],
+                                                            listaprodutosDoGenero[
+                                                                    j]
+                                                                .descricao)));
+                                              },
+                                              child: Container(
+                                                child: Image(
+                                                  image:
+                                                      listaprodutosDoGenero[j]
+                                                          .imagem,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                              );
-                                            } else {
-                                              return Text(
-                                                '',
-                                              );
-                                            }
+                                                width: resize.getWidth(130),
+                                                margin: EdgeInsets.only(
+                                                    right: resize.getWidth(46)),
+                                              ),
+                                            );
                                           },
                                         ),
                                       ),
@@ -209,6 +224,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   textAlign: TextAlign.center);
             },
           ),
-        ));
+        ),
+        widget.id);
   }
 }

@@ -5,6 +5,10 @@ import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/evento.dart';
 
 class EventsScreen extends StatefulWidget {
+
+  final int id;
+
+  const EventsScreen(this.id);
   @override
   _EventsScreenState createState() => _EventsScreenState();
 }
@@ -91,6 +95,6 @@ class _EventsScreenState extends State<EventsScreen> {
                       return Text('Falha ao buscar eventos');
                   }
                   return Text('Falha desconhecida');
-                })));
+                })),widget.id);
   }
 }

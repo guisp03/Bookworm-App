@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste/util/resize.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextStyle style;
@@ -23,12 +24,14 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Resize resize = new Resize();
+    resize.getWidthAndHeight(context);
     return Padding(
       padding: EdgeInsets.only(
-        top: 24.0,
-        bottom: 24.0,
-        right: 48.0,
-        left: 48.0,
+        top: resize.getHeight(24.0),
+        bottom: resize.getHeight(24.0),
+        right: resize.getWidth(48.0),
+        left: resize.getWidth(48.0),
       ),
       child: TextField(
         style: style,
@@ -44,7 +47,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: hintStyle,
           suffixIcon:
-              ImageIcon(icon, color: Color.fromRGBO(25, 50, 60, 1), size: 36.0),
+              ImageIcon(icon, color: Color.fromRGBO(25, 50, 60, 1), size: resize.getWidth(36.0)),
         ),
         controller: controller,
         onChanged: onChanged,

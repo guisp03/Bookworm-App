@@ -21,11 +21,6 @@ class Reserva {
         'dataReserva' : dataReserva
       };
 
-  Future<Reserva> getReserva() async{
-    final Response response = await client.get(baseUrl);
-    return Reserva.fromJson(jsonDecode(response.body));
-  }
-
   Future<Reserva> putReserva(Reserva reserva) async{
     final Response response = await client.put(baseUrl, body: reserva);
     return Reserva.fromJson(jsonDecode(response.body));

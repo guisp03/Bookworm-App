@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:teste/util/resize.dart';
 
 class OutsideButton extends StatelessWidget {
   final Function onClick;
@@ -14,11 +15,12 @@ class OutsideButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(412, 732), allowFontScaling: false);
+    Resize resize = new Resize();
+    resize.getWidthAndHeight(context);
     return Padding(
       padding: EdgeInsets.only(
-        top: 24.0.h,
-        bottom: 24.0.h,
+        top: resize.getHeight(24.0),
+        bottom: resize.getHeight(24.0),
       ),
       child: FlatButton(
         onPressed: onClick,
@@ -31,11 +33,11 @@ class OutsideButton extends StatelessWidget {
         ),
         color: Color.fromRGBO(25, 50, 60, 1),
         padding: EdgeInsets.only(
-            top: 16.0.h,
-            bottom: 16.0.h,
-            right: horizontalPadding,
-            left: horizontalPadding,
-            ),
+          top: resize.getHeight(16.0),
+          bottom: resize.getHeight(16.0),
+          right: horizontalPadding,
+          left: horizontalPadding,
+        ),
       ),
     );
   }

@@ -22,7 +22,7 @@ class StartScreenState extends State<StartScreen> {
       });
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => ProductListScreen()),
+          MaterialPageRoute(builder: (context) => ProductListScreen(0)),
           (route) => false);
     }
   }

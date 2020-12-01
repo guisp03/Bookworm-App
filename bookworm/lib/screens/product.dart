@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/customAlertDialog.dart';
-import 'package:teste/components/customCalendar.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
 
 class ProductScreen extends StatefulWidget {
+  final int id;
   final String nomeProduto;
   final ImageProvider imagem;
   final String editora;
@@ -16,6 +16,7 @@ class ProductScreen extends StatefulWidget {
   final String descricao;
 
   const ProductScreen(
+    this.id,
     this.nomeProduto,
     this.imagem,
     this.editora,
@@ -80,37 +81,48 @@ class _ProductScreenState extends State<ProductScreen> {
                                 builder: (_) => CustomAlertDialog(
                                   Column(
                                     children: <Widget>[
-                                      ClickableText(0.0, 0.0, () {
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (_) => CustomAlertDialog(
-                                            Column(
-                                              children: <Widget>[
-                                                Text(
-                                                    "Reservar para o dia tal?"),
-                                                    Image.asset('assets/images/ratinholivro.png'),
-                                                ClickableText(
-                                                  0.0,
-                                                  0.0,
-                                                  () {},
-                                                  TextWithIcon(
-                                                    AssetImage(
-                                                        "assets/images/reservar.png"),
-                                                    Text(
-                                                      "Reservar",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1,
+                                      ClickableText(
+                                        0.0,
+                                        0.0,
+                                        () => showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            lastDate: DateTime(3000)),
+                                        /*{
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) => CustomAlertDialog(
+                                              Column(
+                                                children: <Widget>[
+                                                  Text(
+                                                      "Reservar para o dia tal?"),
+                                                  Image.asset(
+                                                      'assets/images/ratinholivro.png'),
+                                                  ClickableText(
+                                                    0.0,
+                                                    0.0,
+                                                    () {},
+                                                    TextWithIcon(
+                                                      AssetImage(
+                                                          "assets/images/reservar.png"),
+                                                      Text(
+                                                        "Reservar",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
+                                              'Reserva',
                                             ),
-                                            'Reserva',
-                                          ),
-                                        );
-                                      }, CustomCalendar()),
+                                          );
+                                        },*/
+                                        null,
+                                      ),
                                     ],
                                   ),
                                   'Calendário',
@@ -166,6 +178,7 @@ class _ProductScreenState extends State<ProductScreen> {
           ],
         ),
       ),
+      widget.id,
     );
   }
 }

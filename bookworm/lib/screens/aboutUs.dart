@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:teste/components/pageModelInside.dart';
 
 class AboutUsScreen extends StatelessWidget {
+  final int id;
+
+  const AboutUsScreen(this.id);
   @override
   Widget build(BuildContext context) {
     return PageModelInsideScreen(
@@ -50,6 +53,7 @@ class AboutUsScreen extends StatelessWidget {
           ],
         ),
       ),
+      id,
     );
   }
 }

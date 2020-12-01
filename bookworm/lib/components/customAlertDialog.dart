@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste/components/clickableIcon.dart';
 import 'package:teste/main.dart';
+import 'package:teste/util/resize.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final Widget widget;
@@ -9,6 +10,8 @@ class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog(this.widget, [this.text = 'Aviso']);
   @override
   Widget build(BuildContext context) {
+    Resize resize = new Resize();
+    resize.getWidthAndHeight(context);
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -19,7 +22,7 @@ class CustomAlertDialog extends StatelessWidget {
               Navigator.pop(context);
             },
             AssetImage("assets/images/fechar.png"),
-            32.0,
+            resize.getWidth(32.0),
           ),
         ],
       ),

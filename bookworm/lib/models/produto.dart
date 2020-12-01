@@ -42,7 +42,7 @@ class Produto {
         isbn = json['ISBN'],
         nome = json['NomeLivro'],
         autores = json['AutoresLivro'],
-        anoEdicao = json['AnoEdicao'],
+        anoEdicao = json['AnoEdicao'].substring(0,4),
         tipoProduto = json['TipoProduto'],
         tipoAcervo = json['TipoAcervo'],
         editora = json['Editora'],
