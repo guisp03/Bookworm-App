@@ -42,7 +42,7 @@ class Produto {
         isbn = json['ISBN'],
         nome = json['NomeLivro'],
         autores = json['AutoresLivro'],
-        anoEdicao = json['AnoEdicao'].substring(0,4),
+        anoEdicao = json['AnoEdicao'],
         tipoProduto = json['TipoProduto'],
         tipoAcervo = json['TipoAcervo'],
         editora = json['Editora'],
@@ -73,14 +73,37 @@ class ProdutoWeb {
             (json['produtos'] as List).map((e) => Produto.fromJson(e)).toList();
 }
 
+class ReservaWeb {
+  final int totalCount;
+  final int count;
+  final int reservas;
+
+  ReservaWeb(this.totalCount, this.count, this.reservas);
+
+  ReservaWeb.fromJson(Map<String, dynamic> json)
+      : totalCount = json['total_count'],
+        count = json['count'],
+        reservas = json['reservas'];
+}
+
 class ProdutoClienteWeb {
   Future<ProdutoWeb> getProdutoWeb(int page) async {
-    final Response response = await client.get(
-        baseUrl + "produtos?page=$page&count=20");
+    final Response response =
+        await client.get(baseUrl + "produtos?page=$page&count=20");
     if (response.statusCode == 200) {
       return ProdutoWeb.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Falha ao buscar produtos!');
+    }
+  }
+
+  Future<ReservaWeb> getReservaWeb(int isbn) async {
+    final Response response =
+        await client.get(baseUrl + "produtos/count?isbn=$isbn&reservas");
+    if (response.statusCode == 200) {
+      return ReservaWeb.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Falha ao buscar reservas!');
     }
   }
 }
