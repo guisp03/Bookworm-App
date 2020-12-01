@@ -6,7 +6,7 @@ import 'package:teste/util/resize.dart';
 
 class FavoritesScreen extends StatefulWidget {
   final int id;
-  final List<Favoritos> favoritos;
+  final List<int> favoritos;
 
   FavoritesScreen(this.id, this.favoritos);
 
@@ -25,6 +25,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   int count = 0;
   List<String> isbns = [];
   List<Produto> repetidos = [];
+  List<Produto> produtosFavoritos = [];
   Resize resize = new Resize();
 
   @override
@@ -71,6 +72,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 produtos.forEach((element) =>
                     element.generos.forEach((item) => generos.add(item)));
                 generos = generos.toSet().toList();
+                produtos.forEach((element) => widget.favoritos.contains(element.idProduto) ? produtosFavoritos.add(element) : () {});
                 if (produtos.isNotEmpty) {
                   return MediaQuery.removePadding(
                     context: context,

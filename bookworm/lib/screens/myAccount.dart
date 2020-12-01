@@ -94,7 +94,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               ),
                             ],
                           ),
-                          _userInformation(context, "CPF: " + leitor.cpf),
+                          _userInformation(context, "CPF: " + leitor.cpf.substring(0,3) + '.'),
                           _userInformation(context, "RG: " + leitor.cpf),
                           _userInformation(context,
                               "Data de Nascimento: " + leitor.dataNasc),

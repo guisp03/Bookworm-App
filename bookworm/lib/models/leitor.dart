@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:teste/http/connection.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
@@ -16,7 +17,7 @@ class Leitor {
   final String rg;
   final String cpf;
   final String dataCadastro;
-  final List<Favoritos> favoritos;
+  final List<int> favoritos;
   final List<ReservaLeitor> reservas;
 
   Leitor(
@@ -39,7 +40,7 @@ class Leitor {
         tipoLeitor = json['TipoLeitor'],
         nome = json['Nome'],
         dataNasc = json[
-            'DataNasc'],//.substring(0,10).split('-').reversed.join().substring(0,2) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(2, 4) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(4,8),
+            'DataNasc'], //.substring(0,10).split('-').reversed.join().substring(0,2) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(2, 4) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(4,8),
         endereco = json['Endereco'],
         telefone = json['Telefone'],
         email = json['Email'],
@@ -47,27 +48,29 @@ class Leitor {
         rg = json['RG'],
         cpf = json['CPF'],
         dataCadastro = json['DataCadastro'],
-        favoritos =
-            json['Favoritos'].map((e) => Favoritos.fromJson(e)).toList().cast<Favoritos>(),
-        reservas =
-            json['Reservas'].map((e) => ReservaLeitor.fromJson(e)).toList().cast<ReservaLeitor>();
-
+        favoritos = json['Favoritos'].cast<int>(),
+        reservas = json['Reservas']
+            .map((e) => ReservaLeitor.fromJson(e))
+            .toList()
+            .cast<ReservaLeitor>();
 
   Map<String, dynamic> toJson() => {
-        'IdLeitor': idLeitor,
+        'IDLeitor': idLeitor,
         'TipoLeitor': tipoLeitor,
         'Nome': nome,
         'DataNasc': dataNasc,
         'Endereco': endereco,
         'Telefone': telefone,
         'Email': email,
-        'ImagemLeitor': imagemLeitor,
-        'RG': rg,
-        'CPF': cpf,
+        'ImagemLeitor': base64.encode(imagemLeitor.toString().codeUnits),
+        'RG': rg.replaceAll(".", "").replaceAll("-", ""),
+        'CPF': cpf.replaceAll(".", "").replaceAll("-", ""),
         'DataCadastro': dataCadastro,
-        'Favoritos': favoritos,
-        'Reservas': reservas
+        //'Favoritos': favoritos.asMap(),
+        'Reservas': jsonEncode(reservas)
       };
+
+
 }
 
 class ReservaLeitor {
@@ -79,14 +82,23 @@ class ReservaLeitor {
   ReservaLeitor.fromJson(Map<String, dynamic> json)
       : idProduto = json['IDProduto'],
         idReserva = json['IDReserva'];
+
+  Map<String, dynamic> toJson() => {
+        'IDProduto': idProduto,
+        'IDReserva': idReserva,
+      };
 }
 
-class Favoritos {
-  final int idProduto;
+class Resultado {
+  final int code;
+  final String message;
 
-  Favoritos(this.idProduto);
+  Resultado(this.code, this.message);
 
-  Favoritos.fromJson(Map<String, dynamic> json) : idProduto = json['IDProduto'];
+  Resultado.fromJson(Map<String, dynamic> json)
+      : code = json['Code'],
+        message = json['Message'];
+
 }
 
 class LeitorWeb {
@@ -95,10 +107,15 @@ class LeitorWeb {
     return Leitor.fromJson(jsonDecode(response.body));
   }
 
-  Future putLeitor(int id, Leitor leitor) async {
+  Future<Resultado> putLeitor(int id, Leitor leitor) async {
     final Response response = await client.put(baseUrl + 'leitor?id=$id',
+    headers: {"content-type": "text/json"},
         body: jsonEncode(leitor.toJson()));
-    return Leitor.fromJson(jsonDecode(response.body));
+        if (response.body.isEmpty) {
+          return Resultado(200, 'Ok');
+        } else {
+              return Resultado.fromJson(jsonDecode(response.body));
+        }
   }
 }
 

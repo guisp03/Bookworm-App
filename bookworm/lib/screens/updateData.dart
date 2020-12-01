@@ -22,7 +22,7 @@ class UpdateDataScreen extends StatefulWidget {
   final ImageProvider imagem;
   final String tipoLeitor;
   final String dataCadastro;
-  final List<Favoritos> favoritos;
+  final List<int> favoritos;
   final List<ReservaLeitor> reservas;
 
   const UpdateDataScreen(
@@ -36,7 +36,9 @@ class UpdateDataScreen extends StatefulWidget {
       this.email,
       this.imagem,
       this.tipoLeitor,
-      this.dataCadastro, this.favoritos, this.reservas);
+      this.dataCadastro,
+      this.favoritos,
+      this.reservas);
 
   @override
   _UpdateDataScreenState createState() => _UpdateDataScreenState();
@@ -51,12 +53,13 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
   final TextEditingController _telefoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final maskCpf = new MaskTextInputFormatter(mask: '###.###.###-##');
-  final maskRg = new MaskTextInputFormatter(mask: '##.###.###-##');
+  final maskRg = new MaskTextInputFormatter(mask: '##.###.###-#');
   final maskData = new MaskTextInputFormatter(mask: '##/##/####');
 
   LeitorWeb leitorWeb = new LeitorWeb();
   Leitor leitor;
-  
+  Resultado resultado;
+
   dynamic image;
   final picker = ImagePicker();
 
@@ -169,7 +172,7 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
               ClickableText(
                 16.0,
                 8.0,
-                () {
+                () async {
                   if (_nomeController.text.isNotEmpty &&
                       _cpfController.text.isNotEmpty &&
                       _rgController.text.isNotEmpty &&
@@ -179,27 +182,44 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
                       _emailController.text.isNotEmpty) {
                     if (CPF.isValid(_cpfController.text)) {
                       leitor = new Leitor(
-                        widget.id,
-                        widget.tipoLeitor,
-                        _nomeController.text,
-                        _dataNascController.text,
-                        _enderecoController.text,
-                        _telefoneController.text,
-                        _emailController.text,
-                        image,
-                        _rgController.text,
-                        _cpfController.text,
-                        widget.dataCadastro,
-                        widget.favoritos,
-                        widget.reservas
-                      );
-                       leitorWeb.putLeitor(widget.id, leitor).catchError((e) =>
-                          showDialog(
+                          widget.id,
+                          widget.tipoLeitor,
+                          _nomeController.text,
+                          _dataNascController.text,
+                          _enderecoController.text,
+                          _telefoneController.text,
+                          _emailController.text,
+                          image,
+                          _rgController.text,
+                          _cpfController.text,
+                          widget.dataCadastro,
+                          widget.favoritos,
+                          widget.reservas);
+                      resultado = await leitorWeb
+                          .putLeitor(widget.id, leitor)
+                          .catchError((e) => showDialog(
                               context: context,
                               barrierDismissible: false,
                               builder: (_) => CustomAlertDialog(Text(
                                   'Erro ao atualizar dados!\nTente novamente!'))));
-                                  
+                      if (resultado.code == 200) {
+                        showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => CustomAlertDialog(
+                                    Text('Dados atualizados com sucesso!')))
+                            .whenComplete(() => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MyAccountScreen(widget.id))));
+                      } else {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => CustomAlertDialog(Text(
+                                'Erro ao atualizar dados!\nTente novamente!')));
+                      }
                     } else {
                       showDialog(
                           context: context,
@@ -214,11 +234,6 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
                         builder: (_) =>
                             CustomAlertDialog(Text('Algum campo está vazio!')));
                   }
-
-                 // Navigator.push(
-                   //   context,
-                   //   MaterialPageRoute(
-                       //   builder: (context) => MyAccountScreen(widget.id)));
                 },
                 TextWithIcon(
                   AssetImage("assets/images/reservar.png"),

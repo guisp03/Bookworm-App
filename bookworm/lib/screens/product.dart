@@ -71,7 +71,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           _productInformation(
                               context, 'Editora: ' + widget.editora),
                           _productInformation(
-                              context, 'Ano edição: ' + widget.anoEdicao),
+                              context, 'Ano edição: ' + widget.anoEdicao.substring(0,4)),
                           ClickableText(
                             16.0,
                             0.0,
@@ -85,6 +85,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       ClickableText(
                                         0.0,
                                         0.0,
+<<<<<<< Updated upstream
                                         () => showRoundedDatePicker(
                                           context: context,
                                           fontFamily: 'JosefinSans',
@@ -215,6 +216,13 @@ class _ProductScreenState extends State<ProductScreen> {
                                             ),
                                           );
                                         },*/
+=======
+                                        () => showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            lastDate: DateTime(3000)),
+>>>>>>> Stashed changes
                                         null,
                                       ),
                                     ],
