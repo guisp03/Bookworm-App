@@ -73,7 +73,7 @@ class ProdutoWeb {
             (json['produtos'] as List).map((e) => Produto.fromJson(e)).toList();
 }
 
-class ReservaWeb {
+/*class ReservaWeb {
   final int totalCount;
   final int count;
   final int reservas;
@@ -84,7 +84,7 @@ class ReservaWeb {
       : totalCount = json['total_count'],
         count = json['count'],
         reservas = json['reservas'];
-}
+}*/
 
 class ProdutoClienteWeb {
   Future<ProdutoWeb> getProdutoWeb(int page) async {
@@ -97,7 +97,7 @@ class ProdutoClienteWeb {
     }
   }
 
-  Future<ReservaWeb> getReservaWeb(int isbn) async {
+  /*Future<ReservaWeb> getReservaWeb(int isbn) async {
     final Response response =
         await client.get(baseUrl + "produtos/count?isbn=$isbn&reservas");
     if (response.statusCode == 200) {
@@ -105,6 +105,5 @@ class ProdutoClienteWeb {
     } else {
       throw Exception('Falha ao buscar reservas!');
     }
-  }
+  }*/
 }
-
