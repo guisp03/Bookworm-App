@@ -26,4 +26,4 @@ final HttpClientWithInterceptor client = HttpClientWithInterceptor.build(
   requestTimeout: Duration(seconds: 5),
 );
 
-const String baseUrl = 'http://192.168.0.9:45455/';
+const String baseUrl = 'http:192.168.0.9:45455/';

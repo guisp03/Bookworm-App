@@ -5,6 +5,7 @@ import 'package:teste/components/textWithIcon.dart';
 import 'package:teste/models/leitor.dart';
 import 'package:teste/screens/favorites.dart';
 import 'package:teste/screens/updateData.dart';
+import 'dart:convert';
 
 class MyAccountScreen extends StatefulWidget {
   final int id;
@@ -80,7 +81,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                         16,
                                 child: CircleAvatar(
                                   radius: 64.0,
-                                  backgroundImage: leitor.imagemLeitor,
+                                  backgroundImage: MemoryImage(
+                                      base64.decode(leitor.imagemLeitor)),
                                 ),
                               ),
                               Container(
@@ -94,10 +96,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               ),
                             ],
                           ),
-                          _userInformation(context, "CPF: " + leitor.cpf.substring(0,3) + '.'),
-                          _userInformation(context, "RG: " + leitor.cpf),
+                          _userInformation(
+                              context,
+                              "CPF: " +
+                                  leitor.cpf.substring(0, 3) +
+                                  '.' +
+                                  leitor.cpf.substring(3, 6) +
+                                  '.' + leitor.cpf.substring(6, 9) + '-' + leitor.cpf.substring(9, 11)),
+                          _userInformation(context, "RG: " + leitor.cpf.substring(0,2) + '.' + leitor.cpf.substring(2,5) + "." + leitor.cpf.substring(5,8) + "-" + leitor.cpf.substring(8, 10)),
                           _userInformation(context,
-                              "Data de Nascimento: " + leitor.dataNasc),
+                              "Data de Nascimento: " + leitor.dataNasc.substring(0,10).split('-').reversed.join().substring(0,2) + "/" + leitor.dataNasc.substring(0,10).split('-').reversed.join().substring(2,4) + '/' + leitor.dataNasc.substring(0,10).split('-').reversed.join().substring(4,8)),
                           _userInformation(
                               context, "Endereço: " + leitor.endereco),
                           _userInformation(
@@ -119,7 +127,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                           leitor.endereco,
                                           leitor.telefone,
                                           leitor.email,
-                                          leitor.imagemLeitor, leitor.tipoLeitor, leitor.dataCadastro, leitor.favoritos, leitor.reservas)));
+                                          leitor.tipoLeitor,
+                                          leitor.dataCadastro,
+                                          leitor.favoritos,
+                                          leitor.reservas)));
                             },
                             TextWithIcon(
                               AssetImage("assets/images/reservar.png"),
@@ -133,9 +144,15 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             16.0,
                             8.0,
                             () {
-                              leitor.favoritos.forEach((element) => print(element));
-                              leitor.reservas.forEach((element) => print(element));
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritesScreen(widget.id, leitor.favoritos)));
+                              leitor.favoritos
+                                  .forEach((element) => print(element));
+                              leitor.reservas
+                                  .forEach((element) => print(element));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FavoritesScreen(
+                                          widget.id, leitor.favoritos)));
                             },
                             TextWithIcon(
                               AssetImage("assets/images/favp.png"),

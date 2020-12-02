@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:teste/components/clickableIcon.dart';
 import 'package:teste/components/customAlertDialog.dart';
 import 'package:teste/components/textWithIcon.dart';
-import 'package:teste/models/produto.dart';
 import 'package:teste/screens/aboutUs.dart';
 import 'package:teste/screens/events.dart';
 import 'package:teste/screens/login.dart';
@@ -49,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                           children: <Widget>[
                             CircleAvatar(
                               radius: 24.0,
-                              backgroundImage: leitor.imagemLeitor,
+                              backgroundImage: MemoryImage(base64.decode(leitor.imagemLeitor)),
                             ),
                             Text(
                               "Olá",
@@ -157,14 +157,37 @@ class CustomDrawer extends StatelessWidget {
                 ),
               );
             }
-            return Text(
-              'Falha ao buscar produtos!\n Tente novamente!',
-              textAlign: TextAlign.center,
-            );
+            return Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    Container(
+                      height: resize.getHeight(110.0),
+                      child: DrawerHeader(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              "Ops, ocorreu algum erro!",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            ClickableIcon(() {
+                              Navigator.pop(context);
+                            }, AssetImage("assets/images/livrosmenu.png"),
+                                resize.getWidth(36.0)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
             break;
         }
-        return Text('Falha deconhecida!\n Tente novamente!',
-            textAlign: TextAlign.center);
+        return Container(
+          child: Text('Falha deconhecida!\n Tente novamente!',
+              textAlign: TextAlign.center),
+        );
       },
     );
   }

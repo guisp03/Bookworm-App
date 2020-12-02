@@ -61,6 +61,10 @@ class _EventsScreenState extends State<EventsScreen> {
                             .forEach((element) => eventos.add(element));
                         if (eventos.isNotEmpty) {
                           return Column(children: <Widget>[
+                            Image.asset(
+                              'assets/images/eventos-animacao.gif',
+                              height: 210,
+                            ),
                             MediaQuery.removePadding(
                                 context: context,
                                 removeTop: true,
@@ -72,10 +76,6 @@ class _EventsScreenState extends State<EventsScreen> {
                                     itemBuilder: (context, i) {
                                       return Column(
                                         children: <Widget>[
-                                          Image.asset(
-                                            'assets/images/eventos-animacao.gif',
-                                            height: 210,
-                                          ),
                                           Divider(
                                             color: Color.fromRGBO(
                                                 255, 255, 255, 1),

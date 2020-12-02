@@ -126,7 +126,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               physics: ScrollPhysics(),
                               itemCount: generos.length,
                               itemBuilder: (context, i) {
-                                List<Produto> listaprodutosDoGenero =
+                                List<Produto> listaProdutosDoGenero =
                                     separarProdutos(generos[i]);
                                 return Column(
                                   children: <Widget>[
@@ -148,42 +148,47 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount:
-                                              listaprodutosDoGenero.length,
+                                              listaProdutosDoGenero.length,
                                           itemBuilder: (context, j) {
                                             return GestureDetector(
                                               onTap: () {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) => ProductScreen(
-                                                            widget.id,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .nome,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .imagem,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .editora,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .anoEdicao,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .tipoProduto,
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .autores,
-                                                            generos[i],
-                                                            listaprodutosDoGenero[
-                                                                    j]
-                                                                .descricao)));
+                                                        builder: (context) =>
+                                                            ProductScreen(
+                                                              widget.id,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .idProduto,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .nome,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .imagem,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .editora,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .anoEdicao,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .tipoProduto,
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .autores,
+                                                              generos[i],
+                                                              listaProdutosDoGenero[
+                                                                      j]
+                                                                  .descricao,
+                                                            )));
                                               },
                                               child: Container(
                                                 child: Image(
                                                   image:
-                                                      listaprodutosDoGenero[j]
+                                                      listaProdutosDoGenero[j]
                                                           .imagem,
                                                   fit: BoxFit.cover,
                                                 ),

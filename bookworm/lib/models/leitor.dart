@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:teste/http/connection.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'dart:io' as Io;
 
 class Leitor {
   final int idLeitor;
@@ -13,7 +13,7 @@ class Leitor {
   final String endereco;
   final String telefone;
   final String email;
-  final ImageProvider imagemLeitor;
+  final String imagemLeitor;
   final String rg;
   final String cpf;
   final String dataCadastro;
@@ -39,12 +39,11 @@ class Leitor {
       : idLeitor = json['IDLeitor'],
         tipoLeitor = json['TipoLeitor'],
         nome = json['Nome'],
-        dataNasc = json[
-            'DataNasc'], //.substring(0,10).split('-').reversed.join().substring(0,2) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(2, 4) + "/" + json['DataNasc'].substring(0,10).split('-').reversed.join().substring(4,8),
+        dataNasc = json['DataNasc'],
         endereco = json['Endereco'],
         telefone = json['Telefone'],
         email = json['Email'],
-        imagemLeitor = MemoryImage(base64.decode(json['ImagemLeitor'])),
+        imagemLeitor = json['ImagemLeitor'],
         rg = json['RG'],
         cpf = json['CPF'],
         dataCadastro = json['DataCadastro'],
@@ -60,17 +59,19 @@ class Leitor {
         'Nome': nome,
         'DataNasc': dataNasc,
         'Endereco': endereco,
-        'Telefone': telefone,
+        'Telefone': telefone == null
+            ? telefone
+            : telefone
+                .replaceAll('(', '')
+                .replaceAll(')', '')
+                .replaceAll('-', ''),
         'Email': email,
-        'ImagemLeitor': base64.encode(imagemLeitor.toString().codeUnits),
-        'RG': rg.replaceAll(".", "").replaceAll("-", ""),
-        'CPF': cpf.replaceAll(".", "").replaceAll("-", ""),
-        'DataCadastro': dataCadastro,
+        'RG': rg == null ? rg : rg.replaceAll(".", "").replaceAll("-", ""),
+        'CPF': cpf == null ? cpf : cpf.replaceAll(".", "").replaceAll("-", ""),
+        'ImagemLeitor': imagemLeitor,
         //'Favoritos': favoritos.asMap(),
         'Reservas': jsonEncode(reservas)
       };
-
-
 }
 
 class ReservaLeitor {
@@ -98,7 +99,6 @@ class Resultado {
   Resultado.fromJson(Map<String, dynamic> json)
       : code = json['Code'],
         message = json['Message'];
-
 }
 
 class LeitorWeb {
@@ -109,13 +109,27 @@ class LeitorWeb {
 
   Future<Resultado> putLeitor(int id, Leitor leitor) async {
     final Response response = await client.put(baseUrl + 'leitor?id=$id',
-    headers: {"content-type": "text/json"},
+        headers: {"content-type": "text/json"},
         body: jsonEncode(leitor.toJson()));
-        if (response.body.isEmpty) {
-          return Resultado(200, 'Ok');
-        } else {
-              return Resultado.fromJson(jsonDecode(response.body));
-        }
+    if (response.body.isEmpty) {
+      return Resultado(200, 'Ok');
+    } else {
+      return Resultado.fromJson(jsonDecode(response.body));
+    }
+  }
+}
+
+class Favoritos {
+  Future<Resultado> putFavoritos(int id, List<int> favoritos) async {
+    final Response response = await client.put(
+      baseUrl + 'leitor/$id/favoritos',
+      headers: {"content-type": "application/json"},
+      body: [1,2,3]);
+      if (response.body.isEmpty) {
+        return Resultado(200, 'Ok');
+      } else {
+        return Resultado.fromJson(jsonDecode(response.body));
+      }
   }
 }
 

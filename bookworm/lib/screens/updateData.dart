@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +11,7 @@ import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/components/textWithIcon.dart';
 import 'package:teste/models/leitor.dart';
 import 'package:teste/screens/myAccount.dart';
+import 'dart:io' as Io;
 
 class UpdateDataScreen extends StatefulWidget {
   final int id;
@@ -19,7 +22,6 @@ class UpdateDataScreen extends StatefulWidget {
   final String endereco;
   final String telefone;
   final String email;
-  final ImageProvider imagem;
   final String tipoLeitor;
   final String dataCadastro;
   final List<int> favoritos;
@@ -34,7 +36,6 @@ class UpdateDataScreen extends StatefulWidget {
       this.endereco,
       this.telefone,
       this.email,
-      this.imagem,
       this.tipoLeitor,
       this.dataCadastro,
       this.favoritos,
@@ -55,16 +56,20 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
   final maskCpf = new MaskTextInputFormatter(mask: '###.###.###-##');
   final maskRg = new MaskTextInputFormatter(mask: '##.###.###-#');
   final maskData = new MaskTextInputFormatter(mask: '##/##/####');
+  final maskTelefone = new MaskTextInputFormatter(mask: '(##)#####-####');
 
   LeitorWeb leitorWeb = new LeitorWeb();
   Leitor leitor;
   Resultado resultado;
+  Resultado resultadoImg;
 
   dynamic image;
+  var stringImage;
   final picker = ImagePicker();
 
   _imgdaCamera() async {
     final file = await picker.getImage(source: ImageSource.camera);
+    stringImage = base64.encode(await Io.File(file.path).readAsBytes());
 
     setState(() {
       file != null ? image = FileImage(File(file.path)) : print('');
@@ -73,6 +78,7 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
 
   _imgdaGaleria() async {
     final file = await picker.getImage(source: ImageSource.gallery);
+    stringImage = base64.encode(await Io.File(file.path).readAsBytes());
 
     setState(() {
       file != null ? image = FileImage(File(file.path)) : print('');
@@ -164,6 +170,7 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
               _userInformation(context, "Telefone: "),
               TextField(
                 controller: _telefoneController,
+                inputFormatters: [maskTelefone],
               ),
               _userInformation(context, "Email: "),
               TextField(
@@ -189,7 +196,7 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
                           _enderecoController.text,
                           _telefoneController.text,
                           _emailController.text,
-                          image,
+                          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
                           _rgController.text,
                           _cpfController.text,
                           widget.dataCadastro,
@@ -203,16 +210,33 @@ class _UpdateDataScreenState extends State<UpdateDataScreen> {
                               builder: (_) => CustomAlertDialog(Text(
                                   'Erro ao atualizar dados!\nTente novamente!'))));
                       if (resultado.code == 200) {
-                        showDialog(
+                        leitor = new Leitor(null, null, null, null, null, null,
+                            null, stringImage, null, null, null, null, null);
+                        resultadoImg = await leitorWeb
+                            .putLeitor(widget.id, leitor)
+                            .catchError((e) => showDialog(
                                 context: context,
                                 barrierDismissible: false,
-                                builder: (_) => CustomAlertDialog(
-                                    Text('Dados atualizados com sucesso!')))
-                            .whenComplete(() => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MyAccountScreen(widget.id))));
+                                builder: (_) => CustomAlertDialog(Text(
+                                    'Erro ao atualizar dados!\nTente novamente!'))));
+                        if (resultadoImg.code == 200) {
+                          showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (_) => CustomAlertDialog(
+                                      Text('Dados atualizados com sucesso!')))
+                              .whenComplete(() => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MyAccountScreen(widget.id))));
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (_) => CustomAlertDialog(Text(
+                                  'Erro ao atualizar a imagem!\nTente novamente!')));
+                        }
                       } else {
                         showDialog(
                             context: context,

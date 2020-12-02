@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:teste/components/clickableText.dart';
 import 'package:teste/components/pageModelInside.dart';
 import 'package:teste/models/leitor.dart';
 import 'package:teste/models/produto.dart';
+import 'package:teste/screens/product.dart';
 import 'package:teste/util/resize.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -21,17 +23,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   List<Produto> produtos = [];
   List<String> generos = [];
   int page = 1;
-  String search = '';
-  int count = 0;
-  List<String> isbns = [];
-  List<Produto> repetidos = [];
   List<Produto> produtosFavoritos = [];
+  List<int> favoritos = [];
   Resize resize = new Resize();
 
   @override
   void initState() {
     super.initState();
     future = produtoClienteWeb.getProdutoWeb(page);
+    favoritos = widget.favoritos;
   }
 
   @override
@@ -64,65 +64,101 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             case ConnectionState.done:
               if (snapshot.hasData) {
                 produtoWeb = snapshot.data;
-                count = count + produtoWeb.count;
-                produtoWeb.produtos.forEach((element) =>
-                    element.nome.contains(search)
-                        ? produtos.add(element)
-                        : () {});
+                produtoWeb.produtos.forEach((element) => produtos.add(element));
                 produtos.forEach((element) =>
+                    widget.favoritos.contains(element.idProduto)
+                        ? produtosFavoritos.add(element)
+                        : () {});
+                produtosFavoritos.forEach((element) =>
                     element.generos.forEach((item) => generos.add(item)));
                 generos = generos.toSet().toList();
-                produtos.forEach((element) => widget.favoritos.contains(element.idProduto) ? produtosFavoritos.add(element) : () {});
-                if (produtos.isNotEmpty) {
-                  return MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      itemCount: widget.favoritos.length ~/ 2,
-                      itemBuilder: (context, i) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            top: resize.getHeight(14),
-                            bottom: resize.getHeight(14),
-                            right: resize.getWidth(38),
-                            left: resize.getWidth(38),
-                          ),
-                          child: SizedBox(
-                            height: resize.getHeight(200),
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemCount: 2,
-                              itemBuilder: (context, j) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    widget.favoritos
-                                        .forEach((element) => print(element));
+                if (produtosFavoritos.isNotEmpty) {
+                  return Column(
+                    children: [
+                      MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: produtosFavoritos.length == 1 ? produtosFavoritos.length : produtosFavoritos.length ~/ 2,
+                          itemBuilder: (context, i) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                top: resize.getHeight(14),
+                                bottom: resize.getHeight(14),
+                                right: resize.getWidth(38),
+                                left: resize.getWidth(38),
+                              ),
+                              child: SizedBox(
+                                height: resize.getHeight(200),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  itemCount: 2,
+                                  itemBuilder: (context, j) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductScreen(
+                                                widget.id,
+                                                produtosFavoritos[j].idProduto,
+                                                produtosFavoritos[j].nome,
+                                                produtosFavoritos[j].imagem,
+                                                produtosFavoritos[j].editora,
+                                                produtosFavoritos[j].anoEdicao,
+                                                produtosFavoritos[j]
+                                                    .tipoProduto,
+                                                produtosFavoritos[j].autores,
+                                                produtosFavoritos[j]
+                                                    .generos
+                                                    .join(", "),
+                                                produtosFavoritos[j].descricao,
+                                              ),
+                                            ));
+                                      },
+                                      child: Container(
+                                        child: Image(
+                                          image: produtosFavoritos[j].imagem,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        width: resize.getWidth(130),
+                                        margin: EdgeInsets.only(
+                                            right: resize.getWidth(46)),
+                                      ),
+                                    );
                                   },
-                                  child: Container(
-                                    child: Image(
-                                      image: AssetImage('assets/images/fav.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    width: resize.getWidth(130),
-                                    margin: EdgeInsets.only(
-                                        right: resize.getWidth(46)),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      widget.favoritos.length > produtosFavoritos.length
+                          ? ClickableText(16, 16, () {
+                              setState(() {
+                                page++;
+                                future = produtoClienteWeb.getProdutoWeb(page);
+                              });
+                            }, Text('Carregar mais'))
+                          : Text(''),
+                    ],
                   );
                 }
               }
+              return Text(
+                'Falha ao buscar produtos!\n Tente novamente!',
+                textAlign: TextAlign.center,
+              );
+              break;
           }
+          return Text('Falha deconhecida!\n Tente novamente!',
+              textAlign: TextAlign.center);
         },
       )),
       widget.id,
