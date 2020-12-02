@@ -7,6 +7,11 @@ void main() {
   runApp(BookwormApp());
 }
 
+//Infelizmente diferente daquilo projetado pelo grupo e pelos desenvolvedores mobile,
+//devido as complicações encontradas no período de quarentena, como os computadores
+//não possúirem todos os recursos! Não foi possível completar as funções de trocar a senha, via api e email
+//Favoritar e desfavoritar os livros, bem como efetuar sua reserva! 
+
 class BookwormApp extends StatelessWidget {
   static const Color darkBlue = Color.fromRGBO(25, 50, 60, 1);
   static const Color darkBlueOpacity = Color.fromRGBO(25, 50, 60, 0.85);
