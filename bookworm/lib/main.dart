@@ -10,7 +10,7 @@ void main() {
 //Infelizmente diferente daquilo projetado pelo grupo e pelos desenvolvedores mobile,
 //devido as complicações encontradas no período de quarentena, como os computadores
 //não possúirem todos os recursos! Não foi possível completar as funções de trocar a senha, via api e email
-//Favoritar e desfavoritar os livros, bem como efetuar sua reserva! 
+//Favoritar e desfavoritar os livros, bem como efetuar sua reserva, além da busca em algum momentos aprsentar falha!
 
 class BookwormApp extends StatelessWidget {
   static const Color darkBlue = Color.fromRGBO(25, 50, 60, 1);
@@ -19,6 +19,7 @@ class BookwormApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         Resize resize = new Resize();
         resize.getWidthAndHeight(context);
